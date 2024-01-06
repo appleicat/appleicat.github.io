@@ -1,0 +1,35 @@
+---
+import Page from './_page';
+import { Pointer } from './_pointer';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>appleicat</title>
+  </head>
+  <body>
+    <Pointer size="32" hover="data-hover-pointer" client:only />
+    <Page client:only />
+  </body>
+</html>
+
+<style is:global>
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  ::selection {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  body {
+    background-color: black;
+    color: white;
+  }
+</style>
+
+<script>
+  import LocomotiveScroll from 'locomotive-scroll';
+  const locomotiveScroll = new LocomotiveScroll();
+</script>
