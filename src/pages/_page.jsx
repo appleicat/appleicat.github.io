@@ -29,12 +29,23 @@ export default function Page() {
               scale: useTransform(scrollYProgress, [0, 1], [1, 33], {
                 ease: easeInOut,
               }),
+              opacity: useTransform(scrollYProgress, [0.1, 0.5], [1, 0], {
+                ease: easeInOut,
+              }),
+              filter: useTransform(
+                scrollYProgress,
+                [0.1, 0.5],
+                ['blur(0px)', 'blur(3px)'],
+                {
+                  ease: easeInOut,
+                }
+              ),
             }}
             className="h-full w-full absolute"
           >
-            <div className="h-full w-full flex flex-col justify-center items-center select-none font-black">
+            <div className="h-full w-full flex flex-col justify-center items-center select-none">
               <div className="flex justify-center items-center overflow-hidden w-full h-full">
-                <HeroText size="32vmax">KITTY</HeroText>
+                <HeroText size="3.5vmax">kitty</HeroText>
               </div>
             </div>
           </motion.div>
@@ -61,7 +72,7 @@ export default function Page() {
               ease: easeInOut,
             }),
           }}
-          className="z-[0] h-full w-full flex justify-center items-center font-light"
+          className="z-[0] h-full w-full flex justify-center items-center"
         >
           <div className="w-1/2 flex flex-col justify-center items-center">
             <div>Design. Develop. Ship.</div>

@@ -9,8 +9,16 @@ import { Pointer } from './_pointer';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>appleicat</title>
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=melodrama@1&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body>
+  <body class="bg-black text-white font-['Satoshi']">
     <Pointer size="32" hover="data-hover-pointer" client:only />
     <Page client:only />
   </body>
@@ -22,10 +30,6 @@ import { Pointer } from './_pointer';
   }
   ::selection {
     background-color: rgba(0, 0, 0, 0.1);
-  }
-  body {
-    background-color: black;
-    color: white;
   }
 </style>
 
