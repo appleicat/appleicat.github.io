@@ -8,8 +8,6 @@ export default function Page() {
   return (
     <motion.section
       ref={ref}
-      animate={{ opacity: [0, 1] }}
-      transition={{ duration: 0.3 }}
       className="relative h-[350vh] cursor-none"
     >
       <section className="sticky top-0 h-screen overflow-hidden">
