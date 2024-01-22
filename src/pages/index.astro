@@ -20,8 +20,12 @@ import Grainy from './_grainy.astro';
     />
   </head>
   <body class="bg-black text-white font-['Satoshi']">
-    <div class="fixed w-full h-full opacity-50" style="filter: url(#grainy) grayscale(1) contrast(150%) brightness(150%)" />
-    <Grainy id="grainy" frequency="1.5" type="turbulence" />
+    <div
+      class="fixed w-full h-full opacity-50"
+      style="filter: url(#grainy) grayscale(1) contrast(300%) brightness(7%)"
+    >
+    </div>
+    <Grainy id="grainy" frequency="7" octaves="7" />
     <Pointer size="32" hover="data-hover-pointer" client:only />
     <Page client:only />
   </body>
