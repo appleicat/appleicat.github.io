@@ -1,0 +1,9 @@
+---
+const { id, type = 'fractalNoise', frequency = '1' } = Astro.props;
+---
+
+<svg class="h-0 w-0">
+  <filter id={id}>
+    <feTurbulence type={type} baseFrequency={frequency}></feTurbulence>
+  </filter>
+</svg>
