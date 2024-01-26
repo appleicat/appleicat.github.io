@@ -1,7 +1,6 @@
 ---
 import Page from './_page';
 import { Pointer } from './_pointer';
-import Grainy from './_grainy.astro';
 ---
 
 <!doctype html>
@@ -20,12 +19,6 @@ import Grainy from './_grainy.astro';
     />
   </head>
   <body class="bg-black text-white font-['Satoshi']">
-    <div
-      class="fixed w-full h-full opacity-50"
-      style="filter: url(#grainy) grayscale(1) contrast(300%) brightness(7%)"
-    >
-    </div>
-    <Grainy id="grainy" frequency="7" octaves="7" />
     <Pointer size="32" hover="data-hover-pointer" client:only />
     <Page client:only />
   </body>
