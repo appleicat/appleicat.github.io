@@ -17,7 +17,7 @@ export const Github = ({ children }) => {
       <div className="flex justify-between items-center">
         <div className="flex items-baseline">
           {data?.name}
-          <div className="text-[0.5em]">
+          <div className="text-[0.44em]">
             <Link href={data?.html_url}>{data?.login}</Link>
           </div>
         </div>

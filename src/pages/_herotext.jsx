@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 export const HeroText = ({ children, size }) => {
   return (
     <motion.div
-      animate={{ filter: ['blur(10px)', 'blur(0px)'], opacity: [0, 1] }}
+      animate={{ opacity: [0, 1] }}
       transition={{
         duration: 1.5,
         ease: 'easeOut',

@@ -2,14 +2,12 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform, easeInOut } from 'framer-motion';
 import { Github } from './_github';
 import { HeroText } from './_herotext';
+import { Link } from './_link';
 export default function Page() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref });
   return (
-    <motion.section
-      ref={ref}
-      className="relative h-[350vh] cursor-none"
-    >
+    <motion.section ref={ref} className="relative h-[350vh] cursor-none">
       <section className="sticky top-0 h-screen overflow-hidden">
         <motion.div
           style={{
@@ -27,17 +25,9 @@ export default function Page() {
               scale: useTransform(scrollYProgress, [0, 1], [1, 33], {
                 ease: easeInOut,
               }),
-              opacity: useTransform(scrollYProgress, [0.1, 0.5], [1, 0], {
+              opacity: useTransform(scrollYProgress, [0, 0.15], [1, 0], {
                 ease: easeInOut,
               }),
-              filter: useTransform(
-                scrollYProgress,
-                [0.1, 0.5],
-                ['blur(0px)', 'blur(3px)'],
-                {
-                  ease: easeInOut,
-                }
-              ),
             }}
             className="h-full w-full absolute"
           >
@@ -49,10 +39,10 @@ export default function Page() {
           </motion.div>
           <motion.div
             style={{
-              opacity: useTransform(scrollYProgress, [0.4, 0.77], [0, 1], {
+              opacity: useTransform(scrollYProgress, [0.15, 0.7], [0, 1], {
                 ease: easeInOut,
               }),
-              scale: useTransform(scrollYProgress, [0.4, 0.9], [0.9, 1], {
+              scale: useTransform(scrollYProgress, [0.15, 0.9], [0.8, 1], {
                 ease: easeInOut,
               }),
             }}
@@ -73,7 +63,49 @@ export default function Page() {
           className="z-[0] h-full w-full flex justify-center items-center"
         >
           <div className="w-1/2 flex flex-col justify-center items-center">
-            <div>Design. Develop. Ship.</div>
+            <div className="flex flex-col justify-center items-center">
+              <div className="w-full mb-4 ml-3">Hı.</div>
+              <div className="w-full mb-4 ml-3">
+                I'm frontend web developer.
+              </div>
+              <div className="w-full mb-4 ml-3">Already developed by me:</div>
+              <div className="w-full flex flex-wrap gap-4">
+                <div className="flex flex-col">
+                  <div>
+                    <Link href="https://appleicat.github.io/calendar/">
+                      calendar →
+                    </Link>
+                  </div>
+                  <div className="ml-1 text-white/70">
+                    minimalistic
+                    <br /> as a dumb phone,
+                    <br /> nothing special.
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <div>
+                    <Link href="https://appleicat.github.io/crypt/">
+                      crypt →
+                    </Link>
+                  </div>
+                  <div className="ml-1 text-white/70">
+                    hashing, signing,
+                    <br /> symmetric and asymmetric
+                    <br /> cryptography.
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <div>
+                    <Link href="https://appleicat.github.io/qrc/">qrc →</Link>
+                  </div>
+                  <div className="ml-1 text-white/70">
+                    QRcode
+                    <br /> generator
+                    <br /> and reader.
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </motion.div>
       </section>
