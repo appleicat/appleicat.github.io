@@ -53,10 +53,13 @@ export default function Page() {
         </motion.div>
         <motion.div
           style={{
-            opacity: useTransform(scrollYProgress, [0.9, 0.95], [0, 1], {
+            opacity: useTransform(scrollYProgress, [0.8, 0.95], [0, 1], {
               ease: easeInOut,
             }),
-            scale: useTransform(scrollYProgress, [0.9, 0.95], [0.97, 1], {
+            scale: useTransform(scrollYProgress, [0.8, 0.95], [0.95, 1], {
+              ease: easeInOut,
+            }),
+            y: useTransform(scrollYProgress, [0.8, 1], ['15%', '0%'], {
               ease: easeInOut,
             }),
           }}
