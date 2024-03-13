@@ -7,7 +7,7 @@ export const HeroText = ({ children, size }) => {
         duration: 1.5,
         ease: 'easeOut',
       }}
-      className="w-full flex justify-evenly items-center font-thin font-['Melodrama']"
+      className="w-full flex justify-evenly items-center font-thin font-['Melodrama'] opacity-0"
       style={{
         fontSize: size,
       }}
