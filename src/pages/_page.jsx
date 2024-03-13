@@ -51,6 +51,14 @@ export default function Page() {
               scale: useTransform(scrollYProgress, [0.15, 0.9], [0.8, 1], {
                 ease: easeInOut,
               }),
+              display: useTransform(
+                scrollYProgress,
+                [0, 0.15, 1],
+                ['none', 'none', 'flex'],
+                {
+                  ease: easeInOut,
+                }
+              ),
             }}
             className="h-full w-full absolute"
           >
