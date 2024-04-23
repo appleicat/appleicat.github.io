@@ -1,11 +1,5 @@
 import { useRef } from 'react';
-import {
-  motion,
-  useScroll,
-  useTransform,
-  easeInOut,
-  easeIn,
-} from 'framer-motion';
+import { motion, useScroll, useTransform, easeInOut } from 'framer-motion';
 import { Github } from './_github';
 import { HeroText } from './_herotext';
 import { Link } from './_link';
@@ -21,7 +15,7 @@ export default function Page() {
               ease: easeInOut,
             }),
             y: useTransform(scrollYProgress, [0.66, 1], ['0vh', '-60vh'], {
-              ease: easeIn,
+              ease: easeInOut,
             }),
           }}
           className="absolute z-[1] overflow-hidden bg-white h-full w-full text-black text-[7vmin] flex items-center justify-center"
