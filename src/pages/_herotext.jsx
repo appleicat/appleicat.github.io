@@ -1,5 +1,14 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 export const HeroText = ({ children, size }) => {
+  const [data, setData] = useState();
+  useEffect(() => {
+    (async () => {
+      setData(
+        await (await fetch(`https://api.github.com/repos/${children}`)).json()
+      );
+    })();
+  }, []);
   return (
     <motion.div
       animate={{ opacity: [0, 1] }}
@@ -12,7 +21,7 @@ export const HeroText = ({ children, size }) => {
         fontSize: size,
       }}
     >
-      {children.split('').map((letter, key) => (
+      {data?.description.split('').map((letter, key) => (
         <motion.div key={key}>{letter}</motion.div>
       ))}
     </motion.div>

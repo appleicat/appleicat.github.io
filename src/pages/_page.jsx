@@ -33,7 +33,7 @@ export default function Page() {
           >
             <div className="h-full w-full flex flex-col justify-center items-center select-none">
               <div className="flex justify-center items-center overflow-hidden w-full h-full">
-                <HeroText size="3.5vmax">kitty</HeroText>
+                <HeroText size="3.5vmax">appleicat/appleicat.github.io</HeroText>
               </div>
             </div>
           </motion.div>
