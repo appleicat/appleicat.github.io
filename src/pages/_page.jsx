@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform, easeInOut } from 'framer-motion';
 import { Github } from './_github';
 import { HeroText } from './_herotext';
+import { Repos } from './_repos';
 import { Link } from './_link';
 export default function Page() {
   const ref = useRef(null);
@@ -20,7 +21,7 @@ export default function Page() {
                   ease: easeInOut,
                 }),
               }}
-              className="absolute z-[1] overflow-hidden bg-white h-full w-full text-black text-[7vmin] flex items-center justify-center"
+              className="absolute overflow-hidden bg-white h-full w-full text-black text-[7vmin] flex items-center justify-center"
             >
               <motion.div
                 style={{
@@ -67,6 +68,10 @@ export default function Page() {
         </motion.section>
       </header>
       <section className="h-[300vh]" />
+      <section>
+        <Repos>appleicat</Repos>
+      </section>
+      <section className="h-1/3" />
     </>
   );
 }
