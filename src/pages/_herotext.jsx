@@ -21,7 +21,7 @@ export const HeroText = ({ children, size }) => {
         fontSize: size,
       }}
     >
-      {(data ? data.description : ' ').split('').map((letter, key) => (
+      {(data ? (data.description ? data.description : ' ') : undefined).split('').map((letter, key) => (
         <motion.div key={key}>{letter}</motion.div>
       ))}
     </motion.div>
