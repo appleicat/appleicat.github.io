@@ -63,6 +63,14 @@ const Github = ({ children }) => {
   );
 };
 
+const Background = ({ children }) => {
+  return (
+    <div className="fixed -z-10 overflow-hidden size-full">
+      <img className="size-full object-cover" src={children} />
+    </div>
+  );
+};
+
 const Repos = ({ children }) => {
   const [data, setData] = useState();
   useEffect(() => {
@@ -110,6 +118,7 @@ export default function Page() {
   const { scrollYProgress } = useScroll({ target: ref });
   return (
     <>
+      {/* <Background></Background> */}
       <motion.header
         style={{
           scale: useTransform(scrollYProgress, [0, 1], [1, 0.5], {
