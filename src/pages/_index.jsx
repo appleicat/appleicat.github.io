@@ -139,7 +139,7 @@ export default function Page() {
         className="fixed size-full overflow-hidden z-50"
       >
         <section ref={ref} className="relative h-[350vh] cursor-none">
-          <section className="sticky top-0 h-screen overflow-hidden">
+          <section className="sticky top-0 h-[100svh] overflow-hidden">
             <div className="absolute overflow-hidden bg-white h-full w-full text-black text-[7vmin] flex items-center justify-center">
               <motion.div
                 style={{
