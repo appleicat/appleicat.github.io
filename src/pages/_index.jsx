@@ -73,13 +73,23 @@ const Background = ({ children }) => {
 
 const Repos = ({ children }) => {
   const [data, setData] = useState();
+  const [isLoading, setLoading] = useState();
+  const [error, setError] = useState();
   useEffect(() => {
     (async () => {
-      setData(
-        await (
-          await fetch(`https://api.github.com/users/${children}/repos`)
-        ).json()
-      );
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `https://api.github.com/users/${children}/repos`
+        );
+        const json = await response.json();
+        setData(json);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setData([]);
+        setLoading(false);
+      }
     })();
   }, []);
   return (
