@@ -37,7 +37,8 @@ import { Pointer } from './_pointer';
 
 <script>
   import LocomotiveScroll from 'locomotive-scroll';
-  window.addEventListener('load', () => {
-    const locomotiveScroll = new LocomotiveScroll();
+  const locomotiveScroll = new LocomotiveScroll();
+  window.addEventListener('scroll', () => {
+    locomotiveScroll.resize();
   });
 </script>
