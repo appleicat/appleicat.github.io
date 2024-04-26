@@ -85,7 +85,7 @@ const Repos = ({ children }) => {
   return (
     <>
       {Array.isArray(data) && (
-        <div className="mx-auto w-1/2 flex flex-col gap-3">
+        <div className="flex flex-col gap-3">
           <div className="mx-1 text-3xl">GitHub repositories</div>
           {data?.map((repo, key) => (
             <div key={key} className="flex">
@@ -110,6 +110,14 @@ const Link = ({ href, children }) => {
     >
       {children}
     </a>
+  );
+};
+
+const Footer = ({ children }) => {
+  return (
+    <footer className="mx-auto w-1/2 p-[5cqmin] bg-white text-black">
+      {children}
+    </footer>
   );
 };
 
@@ -178,10 +186,10 @@ export default function Page() {
         </section>
       </motion.header>
       <section className="h-[300vh] -z-50" />
-      <section>
+      <section className="mx-auto w-1/2 py-[5cqmin]"></section>
+      <Footer>
         <Repos>appleicat</Repos>
-      </section>
-      <section className="h-1/3" />
+      </Footer>
     </>
   );
 }
