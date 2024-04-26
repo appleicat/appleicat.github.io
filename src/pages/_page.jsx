@@ -9,20 +9,20 @@ export default function Page() {
   const { scrollYProgress } = useScroll({ target: ref });
   return (
     <>
-      <header className="fixed size-full">
-        <motion.section ref={ref} className="relative h-[350vh] cursor-none">
+      <motion.header
+        style={{
+          scale: useTransform(scrollYProgress, [0, 1], [1, 0.5], {
+            ease: easeInOut,
+          }),
+          y: useTransform(scrollYProgress, [0.66, 1], ['0vh', '-60vh'], {
+            ease: easeInOut,
+          }),
+        }}
+        className="fixed size-full overflow-hidden z-50"
+      >
+        <section ref={ref} className="relative h-[350vh] cursor-none">
           <section className="sticky top-0 h-screen overflow-hidden">
-            <motion.div
-              style={{
-                scale: useTransform(scrollYProgress, [0, 1], [1, 0.5], {
-                  ease: easeInOut,
-                }),
-                y: useTransform(scrollYProgress, [0.66, 1], ['0vh', '-60vh'], {
-                  ease: easeInOut,
-                }),
-              }}
-              className="absolute overflow-hidden bg-white h-full w-full text-black text-[7vmin] flex items-center justify-center"
-            >
+            <div className="absolute overflow-hidden bg-white h-full w-full text-black text-[7vmin] flex items-center justify-center">
               <motion.div
                 style={{
                   scale: useTransform(scrollYProgress, [0, 1], [1, 33], {
@@ -63,11 +63,11 @@ export default function Page() {
               >
                 <Github>appleicat</Github>
               </motion.div>
-            </motion.div>
+            </div>
           </section>
-        </motion.section>
-      </header>
-      <section className="h-[300vh]" />
+        </section>
+      </motion.header>
+      <section className="h-[300vh] -z-50" />
       <section>
         <Repos>appleicat</Repos>
       </section>
