@@ -125,7 +125,7 @@ const Link = ({ href, children }) => {
 
 const Footer = ({ children }) => {
   return (
-    <section>
+    <section className="min-h-svh flex flex-col-reverse">
       <footer className="mx-auto w-1/2 p-[5cqmin] bg-white text-black">
         {children}
       </footer>
