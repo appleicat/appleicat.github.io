@@ -125,9 +125,11 @@ const Link = ({ href, children }) => {
 
 const Footer = ({ children }) => {
   return (
-    <footer className="mx-auto w-1/2 p-[5cqmin] bg-white text-black">
-      {children}
-    </footer>
+    <section>
+      <footer className="mx-auto w-1/2 p-[5cqmin] bg-white text-black">
+        {children}
+      </footer>
+    </section>
   );
 };
 
@@ -196,7 +198,9 @@ export default function Page() {
         </section>
       </motion.header>
       <section className="h-[300vh] -z-50" />
-      <section className="mx-auto w-1/2 py-[5cqmin]"></section>
+      <main>
+        <section className="mx-auto w-1/2 py-[5cqmin]"></section>
+      </main>
       <Footer>
         <Repos>appleicat</Repos>
       </Footer>
