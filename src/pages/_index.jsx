@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, easeInOut } from 'framer-motion';
 
-const HeroText = ({ children, size }) => {
+const HeroText = ({ children }) => {
   const [data, setData] = useState();
   useEffect(() => {
     (async () => {
@@ -18,9 +18,6 @@ const HeroText = ({ children, size }) => {
         ease: 'easeOut',
       }}
       className="w-full flex justify-evenly items-center font-thin font-['Melodrama'] opacity-0"
-      style={{
-        fontSize: size,
-      }}
     >
       {(data ? (data.description ? data.description : ' ') : ' ')
         .split('')
@@ -96,11 +93,11 @@ const Repos = ({ children }) => {
     <>
       {Array.isArray(data) && (
         <div className="flex flex-col gap-3">
-          <div className="mx-1 text-3xl">GitHub repositories</div>
+          <div className="mx-1 text-[2em]">GitHub repositories</div>
           {data?.map((repo, key) => (
             <div key={key} className="flex">
               <div className="flex text-nowrap">
-                <Link href={repo.html_url}>{repo.name} &rarr;</Link>
+                <Link href={repo.html_url}> {repo.name} &rarr; </Link>
               </div>
               <div className="mx-1 opacity-70">{repo.description}</div>
             </div>
@@ -114,7 +111,7 @@ const Repos = ({ children }) => {
 const Link = ({ href, children }) => {
   return (
     <a
-      className="px-[5px] cursor-none underline underline-offset-[3.5px] hover:no-underline transition-all inline-block"
+      className="cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre"
       href={href}
       data-hover-pointer
     >
@@ -152,7 +149,7 @@ export default function Page() {
       >
         <section ref={ref} className="relative h-[350vh] cursor-none">
           <section className="sticky top-0 h-[100svh] overflow-hidden">
-            <div className="absolute overflow-hidden bg-white h-full w-full text-black text-[7vmin] flex items-center justify-center">
+            <div className="absolute overflow-hidden bg-white h-full w-full text-black flex items-center justify-center">
               <motion.div
                 style={{
                   scale: useTransform(scrollYProgress, [0, 1], [1, 33], {
@@ -162,13 +159,11 @@ export default function Page() {
                     ease: easeInOut,
                   }),
                 }}
-                className="h-full w-full absolute"
+                className="h-full w-full absolute text-[3.5vmax]"
               >
                 <div className="h-full w-full flex flex-col justify-center items-center select-none">
                   <div className="flex justify-center items-center overflow-hidden w-full h-full">
-                    <HeroText size="3.5vmax">
-                      appleicat/appleicat.github.io
-                    </HeroText>
+                    <HeroText>appleicat/appleicat.github.io</HeroText>
                   </div>
                 </div>
               </motion.div>
@@ -189,7 +184,7 @@ export default function Page() {
                     }
                   ),
                 }}
-                className="h-full w-full absolute"
+                className="h-full w-full absolute text-[7vmin]"
               >
                 <Github>appleicat</Github>
               </motion.div>
@@ -199,7 +194,21 @@ export default function Page() {
       </motion.header>
       <section className="h-[300vh] -z-50" />
       <main>
-        <section className="mx-auto w-1/2 py-[5cqmin]"></section>
+        <section className="mx-auto py-5 w-1/2 text-[5em]">Hı.</section>
+        <section className="px-[5cqmin] py-5 text-[5em]">
+          I'm frontend web developer.
+        </section>
+        <section className="px-[5cqmin] py-5 text-[5em]">
+          Check out my
+          <Link href="https://appleicat.github.io/qrc/">
+            &nbsp;QRcode&nbsp;generator&nbsp;&rarr;&nbsp;
+          </Link>
+          or some kind of
+          <Link href="https://appleicat.github.io/crypt/">
+            &nbsp;cryptography&nbsp;&rarr;&nbsp;
+          </Link>
+          stuff.
+        </section>
       </main>
       <Footer>
         <Repos>appleicat</Repos>
