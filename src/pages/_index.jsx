@@ -30,6 +30,7 @@ const HeroText = ({ children }) => {
 
 const Github = ({ children }) => {
   const [data, setData] = useState();
+  const [socials, setSocials] = useState();
   useEffect(() => {
     (async () => {
       setData(
@@ -37,12 +38,43 @@ const Github = ({ children }) => {
       );
     })();
   }, []);
+  useEffect(() => {
+    (async () => {
+      setSocials(
+        await (
+          await fetch(
+            `https://api.github.com/users/${children}/social_accounts`
+          )
+        ).json()
+      );
+    })();
+  }, []);
   return (
     <div className="h-full w-full p-[10cqmin] flex flex-col justify-between select-none">
-      <div className="flex justify-between">
+      <div className="h-full flex flex-col justify-between">
         <div className="text-justify">{data?.bio}</div>
+        <div className="flex justify-between items-end text-[0.44em]">
+          <div className="flex flex-col items-start">
+            {Array.isArray(socials) &&
+              socials?.map((social, key) => (
+                <Link key={key} href={social.url}>
+                  {social.url}
+                </Link>
+              ))}
+          </div>
+          <div className="flex flex-col items-end">
+            <div>{data?.hireable && 'HIREABLE'}</div>
+            <div>{data?.company}</div>
+            <div>{data?.location}</div>
+            <div>
+              {data?.email && (
+                <Link href={`mailto:${data?.email}`}>{data?.email}</Link>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="flex justify-between items-center">
+      <div className="pt-[10cqmin] flex justify-between items-center">
         <div className="flex items-baseline">
           {data?.name}
           <div className="text-[0.44em]">
