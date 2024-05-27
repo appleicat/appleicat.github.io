@@ -152,79 +152,81 @@ const Link = ({ href, children }) => {
   );
 };
 
-const Footer = ({ children }) => {
-  return (
-    <section className="min-h-svh flex flex-col-reverse">
-      <footer className="mx-auto w-1/2 p-[5cqmin] bg-white text-black">
-        {children}
-      </footer>
-    </section>
-  );
-};
-
 export default function Page() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref });
   return (
     <>
       {/* <Background></Background> */}
-      <motion.header
-        style={{
-          scale: useTransform(scrollYProgress, [0, 1], [1, 0.5], {
-            ease: easeInOut,
-          }),
-          y: useTransform(scrollYProgress, [0.66, 1], ['0vh', '-60vh'], {
-            ease: easeInOut,
-          }),
-        }}
-        className="fixed size-full overflow-hidden z-50"
-      >
-        <section ref={ref} className="relative h-[350vh] cursor-none">
-          <section className="sticky top-0 h-[100svh] overflow-hidden">
-            <div className="absolute overflow-hidden bg-white h-full w-full text-black flex items-center justify-center">
-              <motion.div
-                style={{
-                  scale: useTransform(scrollYProgress, [0, 1], [1, 33], {
-                    ease: easeInOut,
-                  }),
-                  opacity: useTransform(scrollYProgress, [0, 0.15], [1, 0], {
-                    ease: easeInOut,
-                  }),
-                }}
-                className="h-full w-full absolute text-[3.5vmax]"
-              >
-                <div className="h-full w-full flex flex-col justify-center items-center select-none">
-                  <div className="flex justify-center items-center overflow-hidden w-full h-full">
-                    <HeroText>appleicat/appleicat.github.io</HeroText>
-                  </div>
-                </div>
-              </motion.div>
-              <motion.div
-                style={{
-                  opacity: useTransform(scrollYProgress, [0.15, 0.7], [0, 1], {
-                    ease: easeInOut,
-                  }),
-                  scale: useTransform(scrollYProgress, [0.15, 0.9], [0.8, 1], {
-                    ease: easeInOut,
-                  }),
-                  display: useTransform(
-                    scrollYProgress,
-                    [0, 0.15, 1],
-                    ['none', 'none', 'flex'],
-                    {
+      <header>
+        <motion.section
+          style={{
+            scale: useTransform(scrollYProgress, [0, 1], [1, 0.5], {
+              ease: easeInOut,
+            }),
+            y: useTransform(scrollYProgress, [0.66, 1], ['0vh', '-60vh'], {
+              ease: easeInOut,
+            }),
+          }}
+          className="fixed size-full overflow-hidden z-50"
+        >
+          <section ref={ref} className="relative h-[350vh] cursor-none">
+            <section className="sticky top-0 h-[100svh] overflow-hidden">
+              <div className="absolute overflow-hidden bg-white h-full w-full text-black flex items-center justify-center">
+                <motion.div
+                  style={{
+                    scale: useTransform(scrollYProgress, [0, 1], [1, 33], {
                       ease: easeInOut,
-                    }
-                  ),
-                }}
-                className="h-full w-full absolute text-[7vmin]"
-              >
-                <Github>appleicat</Github>
-              </motion.div>
-            </div>
+                    }),
+                    opacity: useTransform(scrollYProgress, [0, 0.15], [1, 0], {
+                      ease: easeInOut,
+                    }),
+                  }}
+                  className="h-full w-full absolute text-[3.5vmax]"
+                >
+                  <div className="h-full w-full flex flex-col justify-center items-center select-none">
+                    <div className="flex justify-center items-center overflow-hidden w-full h-full">
+                      <HeroText>appleicat/appleicat.github.io</HeroText>
+                    </div>
+                  </div>
+                </motion.div>
+                <motion.div
+                  style={{
+                    opacity: useTransform(
+                      scrollYProgress,
+                      [0.15, 0.7],
+                      [0, 1],
+                      {
+                        ease: easeInOut,
+                      }
+                    ),
+                    scale: useTransform(
+                      scrollYProgress,
+                      [0.15, 0.9],
+                      [0.8, 1],
+                      {
+                        ease: easeInOut,
+                      }
+                    ),
+                    display: useTransform(
+                      scrollYProgress,
+                      [0, 0.15, 1],
+                      ['none', 'none', 'flex'],
+                      {
+                        ease: easeInOut,
+                      }
+                    ),
+                  }}
+                  className="h-full w-full absolute text-[7vmin]"
+                >
+                  <Github>appleicat</Github>
+                </motion.div>
+              </div>
+            </section>
           </section>
-        </section>
-      </motion.header>
-      <section className="h-[300vh] -z-50" />
+        </motion.section>
+        <section className="h-[300vh] -z-50" />
+      </header>
       <main>
         <section className="mx-auto py-5 w-1/2 text-[5em]">Hı.</section>
         <section className="px-[5cqmin] py-5 text-[5em]">
@@ -242,9 +244,18 @@ export default function Page() {
           stuff.
         </section>
       </main>
-      <Footer>
-        <Repos>appleicat</Repos>
-      </Footer>
+      <section className="min-h-svh flex flex-col-reverse">
+        <section className="mx-auto w-1/2 p-[5cqmin] bg-white text-black">
+          <Repos>appleicat</Repos>
+        </section>
+      </section>
+      {/* <footer>
+        <section className="text-black bg-white">
+          <section className="relative h-screen w-screen [clip-path:polygon(0%_0%,100%_0%,100%_100%,0%_100%)]">
+            <section className="fixed h-screen w-screen inset-0"></section>
+          </section>
+        </section>
+      </footer> */}
     </>
   );
 }
