@@ -1,144 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useTransform, easeInOut } from 'framer-motion';
-
-const HeroText = ({ children }) => {
-  const [data, setData] = useState();
-  useEffect(() => {
-    (async () => {
-      setData(
-        await (await fetch(`https://api.github.com/repos/${children}`)).json()
-      );
-    })();
-  }, []);
-  return (
-    <motion.div
-      animate={{ opacity: [0, 1] }}
-      transition={{
-        duration: 1.5,
-        ease: 'easeOut',
-      }}
-      className="w-full flex justify-evenly items-center font-thin font-['Melodrama'] opacity-0"
-    >
-      {(data ? (data.description ? data.description : ' ') : ' ')
-        .split('')
-        .map((letter, key) => (
-          <motion.div key={key}>{letter}</motion.div>
-        ))}
-    </motion.div>
-  );
-};
-
-const Github = ({ children }) => {
-  const [data, setData] = useState();
-  const [socials, setSocials] = useState();
-  useEffect(() => {
-    (async () => {
-      setData(
-        await (await fetch(`https://api.github.com/users/${children}`)).json()
-      );
-    })();
-  }, []);
-  useEffect(() => {
-    (async () => {
-      setSocials(
-        await (
-          await fetch(
-            `https://api.github.com/users/${children}/social_accounts`
-          )
-        ).json()
-      );
-    })();
-  }, []);
-  return (
-    <div className="h-full w-full p-[10cqmin] flex flex-col justify-between select-none">
-      <div className="h-full flex flex-col justify-between">
-        <div className="text-justify">{data?.bio}</div>
-        <div className="flex justify-between items-end text-[0.44em]">
-          <div className="flex flex-col items-start">
-            {Array.isArray(socials) &&
-              socials?.map((social, key) => (
-                <Link key={key} href={social.url}>
-                  {social.url}
-                </Link>
-              ))}
-          </div>
-          <div className="flex flex-col items-end">
-            <div>{data?.hireable && 'HIREABLE'}</div>
-            <div>{data?.company}</div>
-            <div>{data?.location}</div>
-            <div>
-              {data?.email && (
-                <Link href={`mailto:${data?.email}`}>{data?.email}</Link>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="pt-[10cqmin] flex justify-between items-center">
-        <div className="flex items-baseline">
-          {data?.name}
-          <div className="text-[0.44em]">
-            <Link href={data?.html_url}>{data?.login}</Link>
-          </div>
-        </div>
-        <div className="overflow-hidden rounded-full h-[11cqmin] aspect-square">
-          <img
-            className="h-full w-full aspect-square object-cover"
-            src={data?.avatar_url}
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const Background = ({ children }) => {
-  return (
-    <div className="fixed -z-10 overflow-hidden size-full">
-      <img className="size-full object-cover" src={children} />
-    </div>
-  );
-};
-
-const Repos = ({ children }) => {
-  const [data, setData] = useState();
-  const [isLoading, setLoading] = useState();
-  const [error, setError] = useState();
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(
-          `https://api.github.com/users/${children}/repos`
-        );
-        const json = await response.json();
-        setData(json);
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setData([]);
-        setLoading(false);
-      }
-    })();
-  }, []);
-  return (
-    <>
-      {Array.isArray(data) && (
-        <div className="flex flex-col gap-3">
-          <div className="mx-1 text-[2em]">GitHub repositories</div>
-          {data?.map((repo, key) => (
-            <div key={key} className="flex">
-              <div className="flex text-nowrap">
-                <Link href={repo.html_url}> {repo.name} &rarr; </Link>
-              </div>
-              <div className="mx-1 opacity-70">{repo.description}</div>
-            </div>
-          ))}
-        </div>
-      )}
-    </>
-  );
-};
 
 const Link = ({ href, children }) => {
   return (
@@ -152,12 +13,14 @@ const Link = ({ href, children }) => {
   );
 };
 
-export default function Page() {
+export default function Page({ data }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref });
   return (
     <>
-      {/* <Background></Background> */}
+      {/* <section className="fixed -z-10 overflow-hidden size-full">
+        <img className="size-full object-cover" src={} />
+      </section> */}
       <header>
         <motion.section
           style={{
@@ -186,7 +49,23 @@ export default function Page() {
                 >
                   <div className="h-full w-full flex flex-col justify-center items-center select-none">
                     <div className="flex justify-center items-center overflow-hidden w-full h-full">
-                      <HeroText>appleicat/appleicat.github.io</HeroText>
+                      <motion.div
+                        animate={{ opacity: [0, 1] }}
+                        transition={{
+                          duration: 1.5,
+                          ease: 'easeOut',
+                        }}
+                        className="w-full flex justify-evenly items-center font-thin font-['Melodrama'] opacity-0"
+                      >
+                        {(data?.user?.repository?.description
+                          ? data?.user?.repository?.description
+                          : ' '
+                        )
+                          .split('')
+                          .map((letter, key) => (
+                            <div key={key}>{letter}</div>
+                          ))}
+                      </motion.div>
                     </div>
                   </div>
                 </motion.div>
@@ -219,7 +98,27 @@ export default function Page() {
                   }}
                   className="h-full w-full absolute text-[7vmin]"
                 >
-                  <Github>appleicat</Github>
+                  <div className="h-full w-full p-[10cqmin] flex flex-col justify-between select-none">
+                    <div className="h-full flex flex-col justify-between">
+                      <div className="text-justify">{data?.user?.bio}</div>
+                    </div>
+                    <div className="pt-[10cqmin] flex justify-between items-center">
+                      <div className="flex items-baseline">
+                        {data?.user?.name}
+                        <div className="text-[0.44em]">
+                          <Link href={data?.user?.url}>
+                            {data?.user?.login}
+                          </Link>
+                        </div>
+                      </div>
+                      <div className="overflow-hidden rounded-full h-[11cqmin] aspect-square">
+                        <img
+                          className="h-full w-full aspect-square object-cover"
+                          src={data?.user?.avatarUrl}
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </motion.div>
               </div>
             </section>
@@ -228,11 +127,11 @@ export default function Page() {
         <section className="h-[300vh] -z-50" />
       </header>
       <main>
-        <section className="mx-auto py-5 w-1/2 text-[5em]">Hı.</section>
-        <section className="px-[5cqmin] py-5 text-[5em]">
+        <section className="mx-auto py-5 w-1/2 text-[3em]">Hı.</section>
+        <section className="px-[5cqmin] py-5 text-[3em]">
           I'm frontend web developer.
         </section>
-        <section className="px-[5cqmin] py-5 text-[5em]">
+        <section className="px-[5cqmin] py-5 text-[3em]">
           Check out my
           <Link href="https://appleicat.github.io/qrc/">
             &nbsp;QRcode&nbsp;generator&nbsp;&rarr;&nbsp;
@@ -244,15 +143,29 @@ export default function Page() {
           stuff.
         </section>
       </main>
-      <section className="min-h-svh flex flex-col-reverse">
+      <section className="pt-32 flex flex-col-reverse">
         <section className="mx-auto w-1/2 p-[5cqmin] bg-white text-black">
-          <Repos>appleicat</Repos>
+          <div className="flex flex-col gap-3">
+            <div className="mx-1 text-[2em]">GitHub repositories</div>
+            {data?.user?.repositories?.nodes?.map((repo, key) => (
+              <div key={key} className="flex">
+                <div className="flex text-nowrap">
+                  <Link href={repo?.url}> {repo?.name} &rarr; </Link>
+                </div>
+                <div className="mx-1 opacity-70">{repo?.description}</div>
+              </div>
+            ))}
+          </div>
         </section>
       </section>
       {/* <footer>
         <section className="text-black bg-white">
           <section className="relative h-screen w-screen [clip-path:polygon(0%_0%,100%_0%,100%_100%,0%_100%)]">
-            <section className="fixed h-screen w-screen inset-0"></section>
+            <section className="fixed h-screen w-screen inset-0">
+              <section className="size-full p-[5cqmin] flex items-end">
+
+              </section>
+            </section>
           </section>
         </section>
       </footer> */}

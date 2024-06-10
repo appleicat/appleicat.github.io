@@ -1,6 +1,43 @@
 ---
 import Page from './_index';
 import { Pointer } from './_pointer';
+const [USER, REPO] = import.meta.env.GITHUB_REPOSITORY.split('/');
+let data;
+try {
+  const response = await fetch(import.meta.env.GITHUB_GRAPHQL_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${import.meta.env.GITHUB_TOKEN}`,
+    },
+    body: JSON.stringify({
+      query: `query {
+        user(login:"${USER}") {
+          login
+          url
+          name
+          avatarUrl
+          bio
+          repository(name:"${REPO}") {
+            description
+       	  }
+          repositories (first:99, ownerAffiliations:OWNER) {
+            nodes {
+              name
+              url
+              description
+            }
+          }
+        }
+      }
+      `,
+    }),
+  });
+  const json = await response.json();
+  data = json.data;
+} catch (error) {
+  console.error(error);
+}
 ---
 
 <!doctype html>
@@ -8,7 +45,13 @@ import { Pointer } from './_pointer';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>appleicat</title>
+    <title>
+      {
+        data?.user?.repository?.description
+          ? data?.user?.repository?.description
+          : data?.user?.name
+      }
+    </title>
     <link
       href="https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap"
       rel="stylesheet"
@@ -22,7 +65,7 @@ import { Pointer } from './_pointer';
     class="bg-black text-white h-svh w-svw font-['Satoshi'] [font-size:clamp(0.5rem,1.618vmin,1rem)] cursor-none"
   >
     <Pointer size="32" hover="data-hover-pointer" client:only="react" />
-    <Page client:load />
+    <Page client:load data={data} />
   </body>
 </html>
 
