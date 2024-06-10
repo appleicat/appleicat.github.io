@@ -15,9 +15,23 @@ try {
         user(login:"${USER}") {
           login
           url
+          websiteUrl
           name
           avatarUrl
           bio
+          company
+          email
+          isHireable
+          location
+          pronouns
+          status {
+            message
+          }
+          socialAccounts(first:99) {
+            nodes {
+              url
+            }
+          }
           repository(name:"${REPO}") {
             description
        	  }

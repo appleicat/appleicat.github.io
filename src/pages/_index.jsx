@@ -124,7 +124,7 @@ export default function Page({ data }) {
             </section>
           </section>
         </motion.section>
-        <section className="h-[300vh] -z-50" />
+        <section className="h-[277vh] -z-50" />
       </header>
       <main>
         <section className="mx-auto py-5 w-1/2 text-[3em]">Hı.</section>
@@ -158,17 +158,67 @@ export default function Page({ data }) {
           </div>
         </section>
       </section>
-      {/* <footer>
+      <footer>
         <section className="text-black bg-white">
           <section className="relative h-screen w-screen [clip-path:polygon(0%_0%,100%_0%,100%_100%,0%_100%)]">
             <section className="fixed h-screen w-screen inset-0">
-              <section className="size-full p-[5cqmin] flex items-end">
-
+              <section className="size-full p-[5cqmin] flex">
+                <section className="flex flex-col justify-end gap-[1em] text-base">
+                  <div className="flex items-baseline">
+                    {data?.user?.name && (
+                      <div className="font-['Melodrama'] text-5xl">
+                        {data?.user?.name}
+                      </div>
+                    )}
+                    <Link href={data?.user?.url}>{data?.user?.login}</Link>
+                    {data?.user?.status?.message && (
+                      <div>&nbsp;·&nbsp;{data?.user?.status?.message}</div>
+                    )}
+                    {data?.user?.pronouns && (
+                      <div className="opacity-30">
+                        &nbsp;·&nbsp;{data?.user?.pronouns}
+                      </div>
+                    )}
+                  </div>
+                  {data?.user?.bio && <div>{data?.user?.bio}</div>}
+                  {(data?.user?.location ||
+                    data?.user?.company ||
+                    data?.user?.isHireable) && (
+                    <div className="flex gap-[1em]">
+                      {data?.user?.location && (
+                        <div>{data?.user?.location}</div>
+                      )}
+                      {data?.user?.company && <div>{data?.user?.company}</div>}
+                      {data?.user?.isHireable && <div>AVAILABLE FOR HIRE</div>}
+                    </div>
+                  )}
+                  {(data?.user?.email ||
+                    data?.user?.websiteUrl ||
+                    data?.user?.socialAccounts?.nodes?.length !== 0) && (
+                    <div className="flex flex-col justify-between gap-[1em]">
+                      {data?.user?.email && (
+                        <Link href={`mailto:${data?.user?.email}`}>
+                          {data?.user?.email}
+                        </Link>
+                      )}
+                      {data?.user?.websiteUrl && (
+                        <Link href={data?.user?.websiteUrl}>
+                          {data?.user?.websiteUrl}
+                        </Link>
+                      )}
+                      {data?.user?.socialAccounts?.nodes?.map((social, key) => (
+                        <Link key={key} href={social.url}>
+                          {social.url}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </section>
               </section>
             </section>
           </section>
         </section>
-      </footer> */}
+      </footer>
     </>
   );
 }
