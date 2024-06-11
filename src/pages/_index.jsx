@@ -129,10 +129,10 @@ export default function Page({ data }) {
       </header>
       <main>
         <section className="mx-auto py-5 w-1/2 text-[3em]">Hı.</section>
-        <section className="px-[5cqmin] py-5 text-[3em]">
+        <section className="mx-auto w-1/2 py-5 text-[3em]">
           I'm frontend web developer.
         </section>
-        <section className="px-[5cqmin] py-5 text-[3em]">
+        <section className="mx-auto w-1/2 py-5 text-[3em]">
           Check out my
           <Link href="https://appleicat.github.io/qrc/">
             &nbsp;QRcode&nbsp;generator&nbsp;&rarr;&nbsp;
@@ -144,10 +144,10 @@ export default function Page({ data }) {
           stuff.
         </section>
       </main>
-      <section className="pt-32 flex flex-col-reverse">
+      <section className="py-32 flex flex-col-reverse">
         <section className="mx-auto w-1/2 p-[5cqmin] bg-white text-black">
           <div className="flex flex-col gap-3">
-            <div className="mx-1 text-[2em]">GitHub repositories</div>
+            <div className="mx-1 mb-3 text-[2em]">GitHub repositories</div>
             {data?.user?.repositories?.nodes?.map((repo, key) => (
               <div key={key} className="flex">
                 <div className="flex text-nowrap">
