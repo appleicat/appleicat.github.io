@@ -1,13 +1,14 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, easeInOut } from 'framer-motion';
 
-const Link = ({ href, children }) => {
+const Link = ({
+  href,
+  children,
+  className = 'cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre',
+  ...props
+}) => {
   return (
-    <a
-      className="cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre"
-      href={href}
-      data-hover-pointer
-    >
+    <a className={className} href={href} data-hover-pointer {...props}>
       {children}
     </a>
   );
@@ -162,58 +163,79 @@ export default function Page({ data }) {
         <section className="text-black bg-white">
           <section className="relative h-screen w-screen [clip-path:polygon(0%_0%,100%_0%,100%_100%,0%_100%)]">
             <section className="fixed h-screen w-screen inset-0">
-              <section className="size-full p-[5cqmin] flex">
-                <section className="flex flex-col justify-end gap-[1em] text-base">
-                  <div className="flex items-baseline">
-                    {data?.user?.name && (
-                      <div className="font-['Melodrama'] text-5xl">
-                        {data?.user?.name}
+              <section className="size-full p-[5cqmin] flex flex-col gap-[2cqmin] text-base">
+                <section className="flex size-full px-1.5">
+                  <section className="flex flex-col justify-end gap-[1em]">
+                    <div className="flex items-baseline">
+                      {data?.user?.name && (
+                        <div className="font-['Melodrama'] text-5xl">
+                          {data?.user?.name}
+                        </div>
+                      )}
+                      <Link
+                        href={data?.user?.url}
+                        className="cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-0.5"
+                      >
+                        {data?.user?.login}
+                      </Link>
+                      {data?.user?.status?.message && (
+                        <div>&nbsp;·&nbsp;{data?.user?.status?.message}</div>
+                      )}
+                      {data?.user?.pronouns && (
+                        <div className="opacity-30">
+                          &nbsp;·&nbsp;{data?.user?.pronouns}
+                        </div>
+                      )}
+                    </div>
+                    {data?.user?.bio && <div>{data?.user?.bio}</div>}
+                    {(data?.user?.location ||
+                      data?.user?.company ||
+                      data?.user?.isHireable) && (
+                      <div className="flex gap-[1em]">
+                        {data?.user?.location && (
+                          <div>{data?.user?.location}</div>
+                        )}
+                        {data?.user?.company && (
+                          <div>{data?.user?.company}</div>
+                        )}
+                        {data?.user?.isHireable && (
+                          <div>AVAILABLE FOR HIRE</div>
+                        )}
                       </div>
                     )}
-                    <Link href={data?.user?.url}>{data?.user?.login}</Link>
-                    {data?.user?.status?.message && (
-                      <div>&nbsp;·&nbsp;{data?.user?.status?.message}</div>
-                    )}
-                    {data?.user?.pronouns && (
-                      <div className="opacity-30">
-                        &nbsp;·&nbsp;{data?.user?.pronouns}
-                      </div>
-                    )}
-                  </div>
-                  {data?.user?.bio && <div>{data?.user?.bio}</div>}
-                  {(data?.user?.location ||
-                    data?.user?.company ||
-                    data?.user?.isHireable) && (
-                    <div className="flex gap-[1em]">
-                      {data?.user?.location && (
-                        <div>{data?.user?.location}</div>
-                      )}
-                      {data?.user?.company && <div>{data?.user?.company}</div>}
-                      {data?.user?.isHireable && <div>AVAILABLE FOR HIRE</div>}
-                    </div>
-                  )}
-                  {(data?.user?.email ||
-                    data?.user?.websiteUrl ||
-                    data?.user?.socialAccounts?.nodes?.length !== 0) && (
-                    <div className="flex flex-col justify-between gap-[1em]">
-                      {data?.user?.email && (
-                        <Link href={`mailto:${data?.user?.email}`}>
-                          {data?.user?.email}
-                        </Link>
-                      )}
-                      {data?.user?.websiteUrl && (
-                        <Link href={data?.user?.websiteUrl}>
-                          {data?.user?.websiteUrl}
-                        </Link>
-                      )}
-                      {data?.user?.socialAccounts?.nodes?.map((social, key) => (
-                        <Link key={key} href={social.url}>
-                          {social.url}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
+                  </section>
                 </section>
+                {(data?.user?.email ||
+                  data?.user?.websiteUrl ||
+                  data?.user?.socialAccounts?.nodes?.length !== 0) && (
+                  <div className="flex flex-wrap justify-start gap-[1em] uppercase text-xs">
+                    {data?.user?.email && (
+                      <Link
+                        href={`mailto:${data?.user?.email}`}
+                        className="cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1.5 py-1"
+                      >
+                        {data?.user?.email}
+                      </Link>
+                    )}
+                    {data?.user?.websiteUrl && (
+                      <Link
+                        href={data?.user?.websiteUrl}
+                        className="cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1.5 py-1"
+                      >
+                        {(data?.user?.websiteUrl).split('/')[2]}
+                      </Link>
+                    )}
+                    {data?.user?.socialAccounts?.nodes?.map((social, key) => (
+                      <Link
+                        key={key}
+                        href={social?.url}
+                        className="cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1.5 py-1"
+                      >
+                        {(social?.url).split('/')[2]}
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </section>
             </section>
           </section>
