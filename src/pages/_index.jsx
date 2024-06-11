@@ -222,13 +222,13 @@ export default function Page({ data }) {
                                 </Link>
                               </div>
                               <div className="flex flex-wrap gap-[0.5em]">
-                                {edge?.node?.collaborators?.totalCount !==
+                                {/* {edge?.node?.collaborators?.totalCount !==
                                   0 && (
                                   <div className="text-xs px-1 py-0.5">
                                     CODERS{' '}
                                     {edge?.node?.collaborators?.totalCount}
                                   </div>
-                                )}
+                                )} */}
                                 {edge?.node?.watchers?.totalCount !== 0 && (
                                   <div className="text-xs px-1 py-0.5">
                                     WATCHERS {edge?.node?.watchers?.totalCount}
