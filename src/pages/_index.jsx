@@ -263,7 +263,10 @@ export default function Page({ data }) {
                               <div className="flex flex-wrap gap-[0.5em]">
                                 {edge?.node?.languages?.edges?.map(
                                   (eedge, key) => (
-                                    <div className="uppercase flex text-xs px-1 py-0.5">
+                                    <div
+                                      key={key}
+                                      className="uppercase flex text-xs px-1 py-0.5"
+                                    >
                                       <div
                                         style={{ color: eedge?.node?.color }}
                                       >
