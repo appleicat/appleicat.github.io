@@ -127,7 +127,7 @@ export default function Page({ data }) {
         </motion.section>
         <section className="h-[277vh] -z-50" />
       </header>
-      <main>
+      <main className="my-32">
         <section className="mx-auto py-5 w-1/2 text-[3em]">Hı.</section>
         <section className="mx-auto w-1/2 py-5 text-[3em]">
           I'm frontend web developer.
@@ -144,27 +144,12 @@ export default function Page({ data }) {
           stuff.
         </section>
       </main>
-      <section className="py-32 flex flex-col-reverse">
-        <section className="mx-auto w-1/2 p-[5cqmin] bg-white text-black">
-          <div className="flex flex-col gap-3">
-            <div className="mx-1 mb-3 text-[2em]">GitHub repositories</div>
-            {data?.user?.repositories?.nodes?.map((repo, key) => (
-              <div key={key} className="flex">
-                <div className="flex text-nowrap">
-                  <Link href={repo?.url}> {repo?.name} &rarr; </Link>
-                </div>
-                <div className="mx-1 opacity-70">{repo?.description}</div>
-              </div>
-            ))}
-          </div>
-        </section>
-      </section>
       <footer>
         <section className="text-black bg-white">
           <section className="relative h-screen w-screen [clip-path:polygon(0%_0%,100%_0%,100%_100%,0%_100%)]">
             <section className="fixed h-screen w-screen inset-0">
-              <section className="size-full p-[5cqmin] flex flex-col gap-[2cqmin] text-base">
-                <section className="flex size-full px-1.5">
+              <section className="size-full p-[5cqmin] pt-[15vh] flex flex-col gap-[3cqmin] text-base">
+                <section className="flex size-full px-1.5 gap-[5cqmin]">
                   <section className="flex flex-col justify-end gap-[1em]">
                     <div className="flex items-baseline">
                       {data?.user?.name && (
@@ -178,6 +163,14 @@ export default function Page({ data }) {
                       >
                         {data?.user?.login}
                       </Link>
+                      {(data?.user?.followers?.totalCount !== 0 ||
+                        data?.user?.following?.totalCount !== 0) && (
+                        <div className="text-xs">
+                          [&nbsp;{data?.user?.followers?.totalCount}
+                          &nbsp;/&nbsp;{data?.user?.following?.totalCount}
+                          &nbsp;]
+                        </div>
+                      )}
                       {data?.user?.status?.message && (
                         <div>&nbsp;·&nbsp;{data?.user?.status?.message}</div>
                       )}
@@ -204,11 +197,102 @@ export default function Page({ data }) {
                       </div>
                     )}
                   </section>
+                  {data?.user?.pinnedItems?.edges?.length !== 0 && (
+                    <section className="flex flex-col justify-end gap-[1em]">
+                      <div className="ml-1 mb-3.5 text-[2em]">
+                        Github repositories
+                      </div>
+                      <div className="flex flex-col gap-[1.618em]">
+                        {data?.user?.pinnedItems?.edges?.map((edge, key) => (
+                          <div key={key} className="flex flex-col gap-[0.35em]">
+                            <div className="flex items-baseline justify-start gap-[0.5em]">
+                              <div className="flex">
+                                <Link
+                                  href={edge?.node?.owner?.url}
+                                  className="cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-0.5"
+                                >
+                                  {edge?.node?.owner?.login}
+                                </Link>
+                                <div>/</div>
+                                <Link
+                                  href={edge?.node?.url}
+                                  className="cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-0.5"
+                                >
+                                  {edge?.node?.name}
+                                </Link>
+                              </div>
+                              <div className="flex flex-wrap gap-[0.5em]">
+                                {edge?.node?.collaborators?.totalCount !==
+                                  0 && (
+                                  <div className="text-xs px-1 py-0.5">
+                                    CODERS{' '}
+                                    {edge?.node?.collaborators?.totalCount}
+                                  </div>
+                                )}
+                                {edge?.node?.watchers?.totalCount !== 0 && (
+                                  <div className="text-xs px-1 py-0.5">
+                                    WATCHERS {edge?.node?.watchers?.totalCount}
+                                  </div>
+                                )}
+                                {edge?.node?.forks?.totalCount !== 0 && (
+                                  <div className="text-xs px-1 py-0.5">
+                                    FORKS {edge?.node?.forks?.totalCount}
+                                  </div>
+                                )}
+                                {edge?.node?.stargazers?.totalCount !== 0 && (
+                                  <div className="text-xs px-1 py-0.5">
+                                    STARS {edge?.node?.stargazers?.totalCount}
+                                  </div>
+                                )}
+                                {edge?.node?.homepageUrl && (
+                                  <Link
+                                    className="cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 py-0.5 text-xs"
+                                    href={edge?.node?.homepageUrl}
+                                  >
+                                    LINK&nbsp;&rarr;
+                                  </Link>
+                                )}
+                              </div>
+                            </div>
+                            {edge?.node?.description && (
+                              <div className="pl-1 text-sm">
+                                {edge?.node?.description}
+                              </div>
+                            )}
+                            {edge?.node?.languages?.edges?.length !== 0 && (
+                              <div className="flex flex-wrap gap-[0.5em]">
+                                {edge?.node?.languages?.edges?.map(
+                                  (eedge, key) => (
+                                    <div className="uppercase flex text-xs px-1 py-0.5">
+                                      <div
+                                        style={{ color: eedge?.node?.color }}
+                                      >
+                                        {eedge?.node?.name}
+                                      </div>
+                                      <div>&nbsp;</div>
+                                      <div>
+                                        {(
+                                          (eedge?.size /
+                                            edge?.node?.languages?.totalSize) *
+                                          100
+                                        ).toFixed(1)}
+                                        %
+                                      </div>
+                                    </div>
+                                  )
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+                  )}
                 </section>
                 {(data?.user?.email ||
                   data?.user?.websiteUrl ||
-                  data?.user?.socialAccounts?.nodes?.length !== 0) && (
-                  <div className="flex flex-wrap justify-start gap-[1em] uppercase text-xs">
+                  data?.user?.socialAccounts?.edges?.length !== 0) && (
+                  <section className="flex flex-wrap justify-start gap-[1em] uppercase text-xs">
                     {data?.user?.email && (
                       <Link
                         href={`mailto:${data?.user?.email}`}
@@ -225,16 +309,16 @@ export default function Page({ data }) {
                         {(data?.user?.websiteUrl).split('/')[2]}
                       </Link>
                     )}
-                    {data?.user?.socialAccounts?.nodes?.map((social, key) => (
+                    {data?.user?.socialAccounts?.edges?.map((edge, key) => (
                       <Link
                         key={key}
-                        href={social?.url}
+                        href={edge?.node?.url}
                         className="cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1.5 py-1"
                       >
-                        {(social?.url).split('/')[2]}
+                        {(edge?.node?.url).split('/')[2]}
                       </Link>
                     ))}
-                  </div>
+                  </section>
                 )}
               </section>
             </section>

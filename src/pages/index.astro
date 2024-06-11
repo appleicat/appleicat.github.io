@@ -24,22 +24,41 @@ try {
           isHireable
           location
           pronouns
-          status {
-            message
-          }
-          socialAccounts(first:99) {
-            nodes {
-              url
+          followers { totalCount }
+          following { totalCount }
+          status { message }
+          socialAccounts(first:4) {
+            edges {
+              node {
+                url
+              }
             }
           }
           repository(name:"${REPO}") {
             description
        	  }
-          repositories (first:99, ownerAffiliations:OWNER) {
-            nodes {
-              name
-              url
-              description
+          pinnedItems(first:6) {
+            edges {
+              node {
+                ... on Repository {
+                  collaborators { totalCount }
+                  description
+                  forks { totalCount }
+                  homepageUrl
+                  languages(first:99,orderBy:{direction:DESC,field:SIZE}) {
+                    totalSize
+                    edges {
+                      node { name color }
+                      size
+                    }
+                  }
+                  name
+                  owner { login url }
+                  stargazers { totalCount }
+                  url
+                  watchers { totalCount }
+                }
+              }
             }
           }
         }
