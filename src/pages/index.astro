@@ -1,4 +1,6 @@
 ---
+import { getCollection } from 'astro:content';
+const collection = await getCollection('collection');
 import Page from './_index';
 import { Pointer } from './_pointer';
 const [USER, REPO] = import.meta.env.GITHUB_REPOSITORY.split('/');
@@ -98,7 +100,7 @@ try {
     class="bg-black text-white h-svh w-svw font-['Satoshi'] [font-size:clamp(0.5rem,1.618vmin,1rem)] cursor-none"
   >
     <Pointer size="32" hover="data-hover-pointer" client:only="react" />
-    <Page client:load data={data} />
+    <Page client:load data={data} collection={collection} />
   </body>
 </html>
 

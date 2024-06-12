@@ -1,0 +1,118 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+export const getStaticPaths = (async () =>
+  (await getCollection('collection'))
+    ? (await getCollection('collection')).map((entry) => ({
+        params: { collection: entry.slug },
+        props: { entry },
+      }))
+    : []) satisfies GetStaticPaths;
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{entry?.data?.title ? entry?.data?.title : entry?.slug}</title>
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=melodrama@1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=jet-brains-mono@1,2&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="font-['Satoshi'] flex flex-col justify-between items-center">
+    <section class="size-full py-[15vh]">
+      <section class="w-[min(100%,700px)] mx-auto flex flex-col gap-3 p-10">
+        {
+          entry?.data?.tag && (
+            <div class="flex flex-wrap">
+              {entry?.data?.tag?.map((tag) => (
+                <div class="text-[0.7em]">{tag}&nbsp;&nbsp;&nbsp;</div>
+              ))}
+            </div>
+          )
+        }
+        {
+          (entry?.data?.author || entry?.data?.date) && (
+            <div class="flex flex-wrap opacity-50 items-baseline">
+              {entry?.data?.date && (
+                <time class="text-[0.7em]">
+                  {new Date(entry?.data?.date).toLocaleDateString('en-GB')}
+                  &nbsp;&nbsp;&nbsp;
+                </time>
+              )}
+              {entry?.data?.author &&
+                entry?.data?.author?.map((author) => (
+                  <span class="italic text-[0.85em]">
+                    {author}&nbsp;&nbsp;&nbsp;
+                  </span>
+                ))}
+            </div>
+          )
+        }
+        <article>
+          <Content />
+        </article>
+      </section>
+    </section>
+  </body>
+</html>
+
+<style is:global>
+  /* ::-webkit-scrollbar {
+    display: none;
+  } */
+  ::selection {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  article {
+    @apply prose text-black;
+  }
+  article * {
+    @apply text-black;
+  }
+  article a {
+    @apply underline-offset-[5px];
+  }
+  article blockquote {
+    @apply border-none px-[1em];
+  }
+  article blockquote p {
+    @apply text-center font-normal not-italic;
+  }
+  article blockquote p:first-of-type::before,
+  article blockquote p:first-of-type::after {
+    @apply content-none;
+  }
+  article p code {
+    @apply px-1.5 py-1 text-white bg-black rounded font-normal before:content-none after:content-none font-['JetBrains_Mono'];
+  }
+  article pre {
+    @apply bg-transparent border border-black rounded-none !important;
+  }
+  article pre code span {
+    @apply font-['JetBrains_Mono'];
+  }
+  article hr {
+    @apply border-black;
+  }
+  article li::marker {
+    @apply text-black;
+  }
+</style>
+
+<script>
+  import LocomotiveScroll from 'locomotive-scroll';
+  const locomotiveScroll = new LocomotiveScroll();
+</script>

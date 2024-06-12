@@ -14,7 +14,7 @@ const Link = ({
   );
 };
 
-export default function Page({ data }) {
+export default function Page({ data, collection }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref });
   return (
@@ -288,6 +288,63 @@ export default function Page({ data }) {
                             )}
                           </div>
                         ))}
+                      </div>
+                    </section>
+                  )}
+                  {collection?.filter((entry) => entry?.data?.show)?.length !==
+                    0 && (
+                    <section className="flex flex-col justify-end gap-[1em]">
+                      <div className="ml-1 mb-3.5 text-[2em]">Collection</div>
+                      <div className="flex flex-col gap-[1.618em]">
+                        {collection
+                          ?.filter((entry) => entry?.data?.show)
+                          ?.map((entry, key) => (
+                            <div key={key} className="flex flex-col">
+                              <Link
+                                className="text-[1em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all whitespace-pre px-1.5 py-0.5 mb-0.5"
+                                href={`/${entry?.slug}`}
+                              >
+                                {entry?.data?.title
+                                  ? entry?.data?.title
+                                  : entry?.slug}
+                              </Link>
+                              {entry?.data?.tag && (
+                                <div className="flex flex-wrap px-1.5">
+                                  {entry?.data?.tag?.map((tag, key) => (
+                                    <div key={key} className="text-[0.7em]">
+                                      {tag}&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                              {entry?.data?.description && (
+                                <div className="text-[0.9em] opacity-50 px-1.5">
+                                  {entry?.data?.description}
+                                </div>
+                              )}
+                              {(entry?.data?.author || entry?.data?.date) && (
+                                <div className="flex flex-wrap opacity-50 px-1.5 items-baseline">
+                                  {entry?.data?.date && (
+                                    <time className="text-[0.7em]">
+                                      {new Date(
+                                        entry?.data?.date
+                                      ).toLocaleDateString('en-GB')}
+                                      &nbsp;&nbsp;&nbsp;
+                                    </time>
+                                  )}
+                                  {entry?.data?.author &&
+                                    entry?.data?.author?.map((author, key) => (
+                                      <span
+                                        key={key}
+                                        className="italic text-[0.85em]"
+                                      >
+                                        {author}&nbsp;&nbsp;&nbsp;
+                                      </span>
+                                    ))}
+                                </div>
+                              )}
+                            </div>
+                          ))}
                       </div>
                     </section>
                   )}
