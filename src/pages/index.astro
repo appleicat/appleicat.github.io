@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 const collection = await getCollection('collection');
+import * as indexMDX from './_index.mdx';
 import Page from './_index';
 import { Pointer } from './_pointer';
 const [USER, REPO] = import.meta.env.GITHUB_REPOSITORY.split('/');
@@ -95,6 +96,10 @@ try {
       href="https://api.fontshare.com/v2/css?f[]=melodrama@1&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=jet-brains-mono@1,2&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body
     class="bg-black text-white h-svh w-svw font-['Satoshi'] [font-size:clamp(0.5rem,1.618vmin,1rem)] cursor-none"
@@ -105,7 +110,10 @@ try {
       data={data}
       collection={collection}
       backgroundImage={''}
-    />
+      mdx={indexMDX}
+    >
+      <indexMDX.Content />
+    </Page>
   </body>
 </html>
 
@@ -116,6 +124,43 @@ try {
   ::selection {
     background-color: rgba(0, 0, 0, 0.1);
   }
+  article {
+    @apply prose text-white max-w-full;
+  }
+  article * {
+    @apply text-white;
+  }
+  article a {
+    @apply underline-offset-[5px] cursor-none underline hover:underline-offset-[1.5px] transition-all inline-block;
+  }
+  article blockquote {
+    @apply border-none px-[1em];
+  }
+  article blockquote p {
+    @apply text-center font-normal not-italic;
+  }
+  article blockquote p:first-of-type::before,
+  article blockquote p:first-of-type::after {
+    @apply content-none;
+  }
+  article p code {
+    @apply px-1.5 py-1 text-black bg-white rounded font-normal before:content-none after:content-none font-['JetBrains_Mono'];
+  }
+  article pre {
+    @apply bg-transparent border border-white rounded-none !important;
+  }
+  article pre code span {
+    @apply font-['JetBrains_Mono'];
+  }
+  article hr {
+    @apply border-white;
+  }
+  article li::marker {
+    @apply text-white;
+  }
+  /* article astro-slot :last-child {
+    @apply mb-0;
+  } */
 </style>
 
 <script>

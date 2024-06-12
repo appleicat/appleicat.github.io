@@ -154,7 +154,13 @@ const Background = ({ image }) => {
   );
 };
 
-export default function Page({ data, collection, backgroundImage }) {
+export default function Page({
+  data,
+  collection,
+  backgroundImage,
+  mdx,
+  children,
+}) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref });
   return (
@@ -266,20 +272,8 @@ export default function Page({ data, collection, backgroundImage }) {
         <section className="h-[257.25vh] -z-50" />
       </header>
       <main className="px-[5cqmin]">
-        <section className="mx-auto py-64 w-[calc(50%+5cqmin)] text-[1.5rem] leading-relaxed text-pretty">
-          Hı.
-          <br />
-          I'm frontend web developer.
-          <br />
-          Check out my
-          <Link href="https://appleicat.github.io/qrc/">
-            &nbsp;QRcode&nbsp;generator&nbsp;&rarr;&nbsp;
-          </Link>
-          or some kind of
-          <Link href="https://appleicat.github.io/crypt/">
-            &nbsp;cryptography&nbsp;&rarr;&nbsp;
-          </Link>
-          stuff.
+        <section className="mx-auto w-[clamp(50%+5cqmin,700px,100%)] text-[1.5rem] leading-relaxed text-pretty">
+          <article>{children}</article>
         </section>
       </main>
       {collection?.filter((entry) => entry?.data?.show)?.length !== 0 && (
