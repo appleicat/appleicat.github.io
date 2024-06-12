@@ -198,14 +198,14 @@ export default function Page({ data, collection }) {
                     )}
                   </section>
                   {data?.user?.pinnedItems?.edges?.length !== 0 && (
-                    <section className="flex flex-col justify-end gap-[1em]">
+                    <section className="max-[1000px]:hidden flex flex-col justify-end gap-[1em]">
                       <div className="ml-1 mb-3.5 text-[2em]">
                         Github repositories
                       </div>
                       <div className="flex flex-col gap-[1.618em]">
                         {data?.user?.pinnedItems?.edges?.map((edge, key) => (
                           <div key={key} className="flex flex-col gap-[0.35em]">
-                            <div className="flex items-baseline justify-start gap-[0.5em]">
+                            <div className="flex flex-wrap items-baseline justify-start gap-[0.5em]">
                               <div className="flex">
                                 <Link
                                   href={edge?.node?.owner?.url}
@@ -293,7 +293,7 @@ export default function Page({ data, collection }) {
                   )}
                   {collection?.filter((entry) => entry?.data?.show)?.length !==
                     0 && (
-                    <section className="flex flex-col justify-end gap-[1em]">
+                    <section className="max-[700px]:hidden flex flex-col justify-end gap-[1em]">
                       <div className="ml-1 mb-3.5 text-[2em]">Collection</div>
                       <div className="flex flex-col gap-[1.618em]">
                         {collection
@@ -301,7 +301,7 @@ export default function Page({ data, collection }) {
                           ?.map((entry, key) => (
                             <div key={key} className="flex flex-col">
                               <Link
-                                className="text-[1em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all whitespace-pre px-1.5 py-0.5 mb-0.5"
+                                className="text-[1em] text-pretty cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all px-1.5 py-0.5 mb-0.5"
                                 href={`/${entry?.slug}`}
                               >
                                 {entry?.data?.title
