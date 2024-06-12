@@ -14,14 +14,152 @@ const Link = ({
   );
 };
 
-export default function Page({ data, collection }) {
+const GithubRepositories = ({ data }) => {
+  return (
+    <section className="flex flex-col gap-[1.618em]">
+      {data?.user?.pinnedItems?.edges?.map((edge, key) => (
+        <div key={key} className="flex flex-col gap-[0.35em]">
+          <div className="flex flex-wrap items-baseline justify-start gap-[0.5em]">
+            <div className="flex">
+              <Link
+                href={edge?.node?.owner?.url}
+                className="cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-0.5"
+              >
+                {edge?.node?.owner?.login}
+              </Link>
+              <div>/</div>
+              <Link
+                href={edge?.node?.url}
+                className="cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-0.5"
+              >
+                {edge?.node?.name}
+              </Link>
+            </div>
+            <div className="flex flex-wrap gap-[0.5em]">
+              {/* {edge?.node?.collaborators?.totalCount !==
+              0 && (
+              <div className="text-xs px-1 py-0.5">
+                CODERS{' '}
+                {edge?.node?.collaborators?.totalCount}
+              </div>
+            )} */}
+              {edge?.node?.watchers?.totalCount !== 0 && (
+                <div className="text-xs px-1 py-0.5">
+                  WATCHERS {edge?.node?.watchers?.totalCount}
+                </div>
+              )}
+              {edge?.node?.forks?.totalCount !== 0 && (
+                <div className="text-xs px-1 py-0.5">
+                  FORKS {edge?.node?.forks?.totalCount}
+                </div>
+              )}
+              {edge?.node?.stargazers?.totalCount !== 0 && (
+                <div className="text-xs px-1 py-0.5">
+                  STARS {edge?.node?.stargazers?.totalCount}
+                </div>
+              )}
+              {edge?.node?.homepageUrl && (
+                <Link
+                  className="cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 py-0.5 text-xs"
+                  href={edge?.node?.homepageUrl}
+                >
+                  LINK&nbsp;&rarr;
+                </Link>
+              )}
+            </div>
+          </div>
+          {edge?.node?.description && (
+            <div className="pl-1 text-sm">{edge?.node?.description}</div>
+          )}
+          {edge?.node?.languages?.edges?.length !== 0 && (
+            <div className="flex flex-wrap">
+              {edge?.node?.languages?.edges?.map((eedge, key) => (
+                <div key={key} className="uppercase flex text-xs px-1 py-0.5">
+                  <div style={{ color: eedge?.node?.color }}>
+                    {eedge?.node?.name}
+                  </div>
+                  <div>&nbsp;</div>
+                  <div>
+                    {(
+                      (eedge?.size / edge?.node?.languages?.totalSize) *
+                      100
+                    ).toFixed(1)}
+                    %
+                  </div>
+                  <div>&nbsp;&nbsp;&nbsp;</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </section>
+  );
+};
+
+const Collection = ({ collection }) => {
+  return (
+    <section className="flex flex-col gap-[1.618em]">
+      {collection
+        ?.filter((entry) => entry?.data?.show)
+        ?.map((entry, key) => (
+          <div key={key} className="flex flex-col">
+            <Link
+              className="text-[1em] text-pretty cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all px-1.5 py-0.5 mb-0.5"
+              href={`/${entry?.slug}`}
+            >
+              {entry?.data?.title ? entry?.data?.title : entry?.slug}
+            </Link>
+            {entry?.data?.tag && (
+              <div className="flex flex-wrap px-1.5">
+                {entry?.data?.tag?.map((tag, key) => (
+                  <div key={key} className="text-[0.7em]">
+                    {tag}&nbsp;&nbsp;&nbsp;
+                  </div>
+                ))}
+              </div>
+            )}
+            {entry?.data?.description && (
+              <div className="text-[0.9em] opacity-50 px-1.5">
+                {entry?.data?.description}
+              </div>
+            )}
+            {(entry?.data?.author || entry?.data?.date) && (
+              <div className="flex flex-wrap opacity-50 px-1.5 items-baseline">
+                {entry?.data?.date && (
+                  <time className="text-[0.7em]">
+                    {new Date(entry?.data?.date).toLocaleDateString('en-GB')}
+                    &nbsp;&nbsp;&nbsp;
+                  </time>
+                )}
+                {entry?.data?.author &&
+                  entry?.data?.author?.map((author, key) => (
+                    <span key={key} className="italic text-[0.85em]">
+                      {author}&nbsp;&nbsp;&nbsp;
+                    </span>
+                  ))}
+              </div>
+            )}
+          </div>
+        ))}
+    </section>
+  );
+};
+
+const Background = ({ image }) => {
+  return (
+    <section className="fixed -z-10 overflow-hidden size-full">
+      <img className="size-full object-cover" src={image} />
+    </section>
+  );
+};
+
+export default function Page({ data, collection, backgroundImage }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref });
   return (
     <>
-      {/* <section className="fixed -z-10 overflow-hidden size-full">
-        <img className="size-full object-cover" src={} />
-      </section> */}
+      {backgroundImage && <Background image={backgroundImage} />}
       <header>
         <motion.section
           style={{
@@ -125,14 +263,14 @@ export default function Page({ data, collection }) {
             </section>
           </section>
         </motion.section>
-        <section className="h-[277vh] -z-50" />
+        <section className="h-[257.25vh] -z-50" />
       </header>
-      <main className="my-32">
-        <section className="mx-auto py-5 w-1/2 text-[3em]">Hı.</section>
-        <section className="mx-auto w-1/2 py-5 text-[3em]">
+      <main className="px-[5cqmin]">
+        <section className="mx-auto py-64 w-[calc(50%+5cqmin)] text-[1.5rem] leading-relaxed text-pretty">
+          Hı.
+          <br />
           I'm frontend web developer.
-        </section>
-        <section className="mx-auto w-1/2 py-5 text-[3em]">
+          <br />
           Check out my
           <Link href="https://appleicat.github.io/qrc/">
             &nbsp;QRcode&nbsp;generator&nbsp;&rarr;&nbsp;
@@ -144,6 +282,26 @@ export default function Page({ data, collection }) {
           stuff.
         </section>
       </main>
+      {collection?.filter((entry) => entry?.data?.show)?.length !== 0 && (
+        <section className="min-[1000px]:hidden flex flex-col-reverse">
+          <section className="px-[5cqmin] py-[max(5cqmin,64px)] bg-white text-black">
+            <div className="flex flex-col gap-3 text-base">
+              <div className="ml-1 mb-3.5 text-[2em]">Collection</div>
+              <Collection collection={collection} />
+            </div>
+          </section>
+        </section>
+      )}
+      {data?.user?.pinnedItems?.edges?.length !== 0 && (
+        <section className="min-[700px]:hidden flex flex-col-reverse">
+          <section className="px-[5cqmin] py-[max(5cqmin,64px)] bg-white text-black">
+            <div className="flex flex-col gap-3 text-base">
+              <div className="ml-1 mb-3.5 text-[2em]">Github repositories</div>
+              <GithubRepositories data={data} />
+            </div>
+          </section>
+        </section>
+      )}
       <footer>
         <section className="text-black bg-white">
           <section className="relative h-screen w-screen [clip-path:polygon(0%_0%,100%_0%,100%_100%,0%_100%)]">
@@ -198,154 +356,18 @@ export default function Page({ data, collection }) {
                     )}
                   </section>
                   {data?.user?.pinnedItems?.edges?.length !== 0 && (
-                    <section className="max-[1000px]:hidden flex flex-col justify-end gap-[1em]">
+                    <section className="max-[699px]:hidden flex flex-col justify-end gap-[1em]">
                       <div className="ml-1 mb-3.5 text-[2em]">
                         Github repositories
                       </div>
-                      <div className="flex flex-col gap-[1.618em]">
-                        {data?.user?.pinnedItems?.edges?.map((edge, key) => (
-                          <div key={key} className="flex flex-col gap-[0.35em]">
-                            <div className="flex flex-wrap items-baseline justify-start gap-[0.5em]">
-                              <div className="flex">
-                                <Link
-                                  href={edge?.node?.owner?.url}
-                                  className="cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-0.5"
-                                >
-                                  {edge?.node?.owner?.login}
-                                </Link>
-                                <div>/</div>
-                                <Link
-                                  href={edge?.node?.url}
-                                  className="cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-0.5"
-                                >
-                                  {edge?.node?.name}
-                                </Link>
-                              </div>
-                              <div className="flex flex-wrap gap-[0.5em]">
-                                {/* {edge?.node?.collaborators?.totalCount !==
-                                  0 && (
-                                  <div className="text-xs px-1 py-0.5">
-                                    CODERS{' '}
-                                    {edge?.node?.collaborators?.totalCount}
-                                  </div>
-                                )} */}
-                                {edge?.node?.watchers?.totalCount !== 0 && (
-                                  <div className="text-xs px-1 py-0.5">
-                                    WATCHERS {edge?.node?.watchers?.totalCount}
-                                  </div>
-                                )}
-                                {edge?.node?.forks?.totalCount !== 0 && (
-                                  <div className="text-xs px-1 py-0.5">
-                                    FORKS {edge?.node?.forks?.totalCount}
-                                  </div>
-                                )}
-                                {edge?.node?.stargazers?.totalCount !== 0 && (
-                                  <div className="text-xs px-1 py-0.5">
-                                    STARS {edge?.node?.stargazers?.totalCount}
-                                  </div>
-                                )}
-                                {edge?.node?.homepageUrl && (
-                                  <Link
-                                    className="cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 py-0.5 text-xs"
-                                    href={edge?.node?.homepageUrl}
-                                  >
-                                    LINK&nbsp;&rarr;
-                                  </Link>
-                                )}
-                              </div>
-                            </div>
-                            {edge?.node?.description && (
-                              <div className="pl-1 text-sm">
-                                {edge?.node?.description}
-                              </div>
-                            )}
-                            {edge?.node?.languages?.edges?.length !== 0 && (
-                              <div className="flex flex-wrap gap-[0.5em]">
-                                {edge?.node?.languages?.edges?.map(
-                                  (eedge, key) => (
-                                    <div
-                                      key={key}
-                                      className="uppercase flex text-xs px-1 py-0.5"
-                                    >
-                                      <div
-                                        style={{ color: eedge?.node?.color }}
-                                      >
-                                        {eedge?.node?.name}
-                                      </div>
-                                      <div>&nbsp;</div>
-                                      <div>
-                                        {(
-                                          (eedge?.size /
-                                            edge?.node?.languages?.totalSize) *
-                                          100
-                                        ).toFixed(1)}
-                                        %
-                                      </div>
-                                    </div>
-                                  )
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
+                      <GithubRepositories data={data} />
                     </section>
                   )}
                   {collection?.filter((entry) => entry?.data?.show)?.length !==
                     0 && (
-                    <section className="max-[700px]:hidden flex flex-col justify-end gap-[1em]">
+                    <section className="max-[999px]:hidden flex flex-col justify-end gap-[1em]">
                       <div className="ml-1 mb-3.5 text-[2em]">Collection</div>
-                      <div className="flex flex-col gap-[1.618em]">
-                        {collection
-                          ?.filter((entry) => entry?.data?.show)
-                          ?.map((entry, key) => (
-                            <div key={key} className="flex flex-col">
-                              <Link
-                                className="text-[1em] text-pretty cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all px-1.5 py-0.5 mb-0.5"
-                                href={`/${entry?.slug}`}
-                              >
-                                {entry?.data?.title
-                                  ? entry?.data?.title
-                                  : entry?.slug}
-                              </Link>
-                              {entry?.data?.tag && (
-                                <div className="flex flex-wrap px-1.5">
-                                  {entry?.data?.tag?.map((tag, key) => (
-                                    <div key={key} className="text-[0.7em]">
-                                      {tag}&nbsp;&nbsp;&nbsp;
-                                    </div>
-                                  ))}
-                                </div>
-                              )}
-                              {entry?.data?.description && (
-                                <div className="text-[0.9em] opacity-50 px-1.5">
-                                  {entry?.data?.description}
-                                </div>
-                              )}
-                              {(entry?.data?.author || entry?.data?.date) && (
-                                <div className="flex flex-wrap opacity-50 px-1.5 items-baseline">
-                                  {entry?.data?.date && (
-                                    <time className="text-[0.7em]">
-                                      {new Date(
-                                        entry?.data?.date
-                                      ).toLocaleDateString('en-GB')}
-                                      &nbsp;&nbsp;&nbsp;
-                                    </time>
-                                  )}
-                                  {entry?.data?.author &&
-                                    entry?.data?.author?.map((author, key) => (
-                                      <span
-                                        key={key}
-                                        className="italic text-[0.85em]"
-                                      >
-                                        {author}&nbsp;&nbsp;&nbsp;
-                                      </span>
-                                    ))}
-                                </div>
-                              )}
-                            </div>
-                          ))}
-                      </div>
+                      <Collection collection={collection} />
                     </section>
                   )}
                 </section>
