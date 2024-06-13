@@ -290,7 +290,7 @@ export default function Page({
         <section className="min-[700px]:hidden flex flex-col-reverse">
           <section className="px-[5cqmin] py-[max(5cqmin,64px)] bg-white text-black">
             <div className="flex flex-col gap-3 text-base">
-              <div className="ml-1 mb-3.5 text-[2em]">Github repositories</div>
+              <div className="ml-1 mb-3.5 text-[2em]">Repositories</div>
               <GithubRepositories data={data} />
             </div>
           </section>
@@ -351,9 +351,7 @@ export default function Page({
                   </section>
                   {data?.user?.pinnedItems?.edges?.length !== 0 && (
                     <section className="max-[699px]:hidden flex flex-col justify-end gap-[1em]">
-                      <div className="ml-1 mb-3.5 text-[2em]">
-                        Github repositories
-                      </div>
+                      <div className="ml-1 mb-3.5 text-[2em]">Repositories</div>
                       <GithubRepositories data={data} />
                     </section>
                   )}
