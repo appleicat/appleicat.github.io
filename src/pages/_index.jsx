@@ -106,7 +106,7 @@ const Collection = ({ collection }) => {
           <div key={key} className="flex flex-col">
             <Link
               className="text-[1em] text-pretty cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all px-1.5 py-0.5 mb-0.5"
-              href={`/${entry?.slug}`}
+              href={`/collection/${entry?.slug}`}
             >
               {entry?.data?.title ? entry?.data?.title : entry?.slug}
             </Link>
