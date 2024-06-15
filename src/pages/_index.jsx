@@ -105,18 +105,18 @@ const Collection = ({ collection }) => {
         ?.map((entry, key) => (
           <div key={key} className="flex flex-col">
             <Link
-              className="text-[1em] text-pretty cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all px-1.5 py-0.5 mb-0.5"
+              className="text-[1em] text-pretty cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all px-1 py-0.5 mb-0.5"
               href={`/collection/${entry?.slug}`}
             >
               {entry?.data?.title ? entry?.data?.title : entry?.slug}
             </Link>
             {entry?.data?.description && (
-              <div className="text-sm opacity-50 px-1.5">
+              <div className="text-sm opacity-50 px-1">
                 {entry?.data?.description}
               </div>
             )}
             {(entry?.data?.tag || entry?.data?.author || entry?.data?.date) && (
-              <div className="flex flex-wrap px-1.5 items-baseline text-[0.7em]">
+              <div className="flex flex-wrap px-1 items-baseline text-[0.7em]">
                 {entry?.data?.date && (
                   <time>{'|'}&nbsp;{new Date(entry?.data?.date).toLocaleDateString('en-GB')}&nbsp;{'|'}&nbsp;&nbsp;&nbsp;</time>
                 )}
@@ -286,7 +286,7 @@ export default function Page({
         <section className="min-[1000px]:hidden flex flex-col-reverse">
           <section className="px-[5cqmin] py-[max(5cqmin,64px)] bg-white text-black">
             <div className="flex flex-col gap-3 text-base">
-              <Link href="/collection" className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1.5 pb-2 pt-1">collection</Link>
+              <Link href="/collection" className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-2 pt-1">collection</Link>
               <Collection collection={collection} />
             </div>
           </section>
@@ -399,7 +399,7 @@ export default function Page({
                   {collection?.filter((entry) => entry?.data?.show)?.length !==
                     0 && (
                     <section className="max-[999px]:hidden flex flex-col overflow-hidden justify-start gap-[1em]">
-                      <Link href="/collection" className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1.5 pb-2 pt-1">collection</Link>
+                      <Link href="/collection" className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-2 pt-1">collection</Link>
                       <Collection collection={collection} />
                     </section>
                   )}
