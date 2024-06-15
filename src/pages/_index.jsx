@@ -296,7 +296,7 @@ export default function Page({
         <section className="min-[700px]:hidden flex flex-col-reverse">
           <section className="px-[5cqmin] py-[max(5cqmin,64px)] bg-white text-black">
             <div className="flex flex-col gap-3 text-base">
-              <div className="ml-1 mb-3.5 text-[2em]">repositories</div>
+              <Link href={`${data?.user?.url}?tab=repositories`} className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-2 pt-1">repositories</Link>
               <GithubRepositories data={data} />
             </div>
           </section>
@@ -392,7 +392,7 @@ export default function Page({
                   </section>
                   {data?.user?.pinnedItems?.edges?.length !== 0 && (
                     <section className="max-[699px]:hidden flex flex-col overflow-hidden justify-start gap-[1em]">
-                      <div className="ml-1 mb-3.5 text-[2em]">repositories</div>
+                      <Link href={`${data?.user?.url}?tab=repositories`} className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-2 pt-1">repositories</Link>
                       <GithubRepositories data={data} />
                     </section>
                   )}
