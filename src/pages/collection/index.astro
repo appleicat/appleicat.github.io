@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+const collection = await getCollection('collection');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>collection</title>
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=melodrama@1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=jet-brains-mono@1,2&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="font-['Satoshi'] flex flex-col justify-between items-center">
+    <section class="size-full py-[15vh]">
+      <section class="w-[min(100%,700px)] mx-auto flex flex-col gap-3 p-10">
+        <div class="text-[3em] inline-block whitespace-pre px-1 pb-16 pt-1">collection</div>
+        <section class="flex flex-col gap-[1.618em]">
+          {
+            collection?.map((entry) => (
+              <div class="flex flex-col">
+                <a
+                  class="underline-offset-[5px] underline hover:underline-offset-[1.5px] transition-all inline-block px-1 py-0.5 mb-0.5"
+                  href={`/collection/${entry?.slug}`}
+                >
+                  {entry?.data?.title ? entry?.data?.title : entry?.slug}
+                </a>
+                {entry?.data?.description && (
+                  <div class="text-sm opacity-50 px-1 py-1">
+                    {entry?.data?.description}
+                  </div>
+                )}
+                {(entry?.data?.tag ||
+                  entry?.data?.author ||
+                  entry?.data?.date) && (
+                  <div class="flex flex-wrap px-1 items-baseline text-[0.7em]">
+                    {entry?.data?.date && (
+                      <time>{'|'}&nbsp;{new Date(entry?.data?.date).toLocaleDateString('en-GB')}&nbsp;{'|'}&nbsp;&nbsp;&nbsp;</time>
+                    )}
+                    {entry?.data?.tag &&
+                      entry?.data?.tag?.map((tag) => (
+                        <div>{'['}&nbsp;{tag}&nbsp;{']'}&nbsp;&nbsp;&nbsp;</div>
+                      ))}
+                    {entry?.data?.author &&
+                      entry?.data?.author?.map((author) => (
+                        <div class="italic">{author}&nbsp;&nbsp;&nbsp;</div>
+                      ))}
+                  </div>
+                )}
+              </div>
+            ))
+          }
+        </section>
+      </section>
+    </section>
+  </body>
+</html>
+
+<style is:global>
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  ::selection {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+</style>
+
+<script>
+  import LocomotiveScroll from 'locomotive-scroll';
+  const locomotiveScroll = new LocomotiveScroll();
+</script>
