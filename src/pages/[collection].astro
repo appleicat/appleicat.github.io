@@ -35,28 +35,18 @@ const { Content } = await entry.render();
     <section class="size-full py-[15vh]">
       <section class="w-[min(100%,700px)] mx-auto flex flex-col gap-3 p-10">
         {
-          entry?.data?.tag && (
-            <div class="flex flex-wrap">
-              {entry?.data?.tag?.map((tag) => (
-                <div class="text-[0.7em]">{tag}&nbsp;&nbsp;&nbsp;</div>
-              ))}
-            </div>
-          )
-        }
-        {
-          (entry?.data?.author || entry?.data?.date) && (
-            <div class="flex flex-wrap opacity-50 items-baseline">
+          (entry?.data?.tag || entry?.data?.author || entry?.data?.date) && (
+            <div class="flex flex-wrap items-baseline text-[0.7em]">
               {entry?.data?.date && (
-                <time class="text-[0.7em]">
-                  {new Date(entry?.data?.date).toLocaleDateString('en-GB')}
-                  &nbsp;&nbsp;&nbsp;
-                </time>
+                <time>{'|'}&nbsp;{new Date(entry?.data?.date).toLocaleDateString('en-GB')}&nbsp;{'|'}&nbsp;&nbsp;&nbsp;</time>
               )}
+              {entry?.data?.tag &&
+                entry?.data?.tag?.map((tag, key) => (
+                  <div>{'['}&nbsp;{tag}&nbsp;{']'}&nbsp;&nbsp;&nbsp;</div>
+                ))}
               {entry?.data?.author &&
-                entry?.data?.author?.map((author) => (
-                  <span class="italic text-[0.9em]">
-                    {author}&nbsp;&nbsp;&nbsp;
-                  </span>
+                entry?.data?.author?.map((author, key) => (
+                  <div class="italic">{author}&nbsp;&nbsp;&nbsp;</div>
                 ))}
             </div>
           )

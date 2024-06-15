@@ -110,33 +110,23 @@ const Collection = ({ collection }) => {
             >
               {entry?.data?.title ? entry?.data?.title : entry?.slug}
             </Link>
-            {entry?.data?.tag && (
-              <div className="flex flex-wrap px-1.5">
-                {entry?.data?.tag?.map((tag, key) => (
-                  <div key={key} className="text-[0.7em]">
-                    {tag}&nbsp;&nbsp;&nbsp;
-                  </div>
-                ))}
-              </div>
-            )}
             {entry?.data?.description && (
-              <div className="text-[0.9em] opacity-50 px-1.5">
+              <div className="text-sm opacity-50 px-1.5">
                 {entry?.data?.description}
               </div>
             )}
-            {(entry?.data?.author || entry?.data?.date) && (
-              <div className="flex flex-wrap opacity-50 px-1.5 items-baseline">
+            {(entry?.data?.tag || entry?.data?.author || entry?.data?.date) && (
+              <div className="flex flex-wrap px-1.5 items-baseline text-[0.7em]">
                 {entry?.data?.date && (
-                  <time className="text-[0.7em]">
-                    {new Date(entry?.data?.date).toLocaleDateString('en-GB')}
-                    &nbsp;&nbsp;&nbsp;
-                  </time>
+                  <time>{'|'}&nbsp;{new Date(entry?.data?.date).toLocaleDateString('en-GB')}&nbsp;{'|'}&nbsp;&nbsp;&nbsp;</time>
                 )}
+                {entry?.data?.tag &&
+                  entry?.data?.tag?.map((tag, key) => (
+                    <div key={key}>{'['}&nbsp;{tag}&nbsp;{']'}&nbsp;&nbsp;&nbsp;</div>
+                  ))}
                 {entry?.data?.author &&
                   entry?.data?.author?.map((author, key) => (
-                    <span key={key} className="italic text-[0.9em]">
-                      {author}&nbsp;&nbsp;&nbsp;
-                    </span>
+                    <div key={key} className="italic">{author}&nbsp;&nbsp;&nbsp;</div>
                   ))}
               </div>
             )}
@@ -280,7 +270,7 @@ export default function Page({
         <section className="min-[1000px]:hidden flex flex-col-reverse">
           <section className="px-[5cqmin] py-[max(5cqmin,64px)] bg-white text-black">
             <div className="flex flex-col gap-3 text-base">
-              <div className="ml-1 mb-3.5 text-[2em]">Collection</div>
+              <div className="ml-1 mb-3.5 text-[2em]">collection</div>
               <Collection collection={collection} />
             </div>
           </section>
@@ -290,7 +280,7 @@ export default function Page({
         <section className="min-[700px]:hidden flex flex-col-reverse">
           <section className="px-[5cqmin] py-[max(5cqmin,64px)] bg-white text-black">
             <div className="flex flex-col gap-3 text-base">
-              <div className="ml-1 mb-3.5 text-[2em]">Repositories</div>
+              <div className="ml-1 mb-3.5 text-[2em]">repositories</div>
               <GithubRepositories data={data} />
             </div>
           </section>
@@ -386,14 +376,14 @@ export default function Page({
                   </section>
                   {data?.user?.pinnedItems?.edges?.length !== 0 && (
                     <section className="max-[699px]:hidden flex flex-col overflow-hidden justify-start gap-[1em]">
-                      <div className="ml-1 mb-3.5 text-[2em]">Repositories</div>
+                      <div className="ml-1 mb-3.5 text-[2em]">repositories</div>
                       <GithubRepositories data={data} />
                     </section>
                   )}
                   {collection?.filter((entry) => entry?.data?.show)?.length !==
                     0 && (
                     <section className="max-[999px]:hidden flex flex-col overflow-hidden justify-start gap-[1em]">
-                      <div className="ml-1 mb-3.5 text-[2em]">Collection</div>
+                      <div className="ml-1 mb-3.5 text-[2em]">collection</div>
                       <Collection collection={collection} />
                     </section>
                   )}
