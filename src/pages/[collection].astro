@@ -54,7 +54,7 @@ const { Content } = await entry.render();
               )}
               {entry?.data?.author &&
                 entry?.data?.author?.map((author) => (
-                  <span class="italic text-[0.85em]">
+                  <span class="italic text-[0.9em]">
                     {author}&nbsp;&nbsp;&nbsp;
                   </span>
                 ))}
@@ -109,6 +109,11 @@ const { Content } = await entry.render();
   }
   article li::marker {
     @apply text-black;
+  }
+  article sup a,
+  article sub a,
+  article section ol li p a {
+    @apply no-underline;
   }
 </style>
 

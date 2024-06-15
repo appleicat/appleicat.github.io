@@ -131,7 +131,7 @@ try {
     @apply text-white;
   }
   article a {
-    @apply underline-offset-[5px] cursor-none underline hover:underline-offset-[1.5px] transition-all inline-block;
+    @apply underline-offset-8 cursor-none underline hover:underline-offset-[1.5px] transition-all inline-block;
   }
   article blockquote {
     @apply border-none px-[1em];
@@ -157,6 +157,11 @@ try {
   }
   article li::marker {
     @apply text-white;
+  }
+  article sup a,
+  article sub a,
+  article section ol li p a {
+    @apply no-underline;
   }
   /* article astro-slot :last-child {
     @apply mb-0;

@@ -7,4 +7,9 @@ import mdx from '@astrojs/mdx';
 export default defineConfig({
   integrations: [tailwind(), react(), mdx()],
   site: 'https://appleicat.github.io',
+  markdown: {
+    remarkRehype: {
+      footnoteLabel: ' ',
+    },
+  },
 });
