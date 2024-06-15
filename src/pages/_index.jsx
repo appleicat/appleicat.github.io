@@ -152,11 +152,27 @@ export default function Page({
   children,
 }) {
   const ref = useRef(null);
+  const footer = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref });
+  const scrollFooter = useScroll({
+    target: footer,
+    offset: ['end end', 'start end'],
+  });
   return (
     <>
       {backgroundImage && <Background image={backgroundImage} />}
-      <header>
+      <motion.header
+        style={{
+          opacity: useTransform(
+            scrollFooter.scrollYProgress,
+            [0.3, 0],
+            [1, 0],
+            {
+              ease: easeInOut,
+            }
+          ),
+        }}
+      >
         <motion.section
           style={{
             scale: useTransform(scrollYProgress, [0, 1], [1, 0.5], {
@@ -260,7 +276,7 @@ export default function Page({
           </section>
         </motion.section>
         <section className="h-[257.25vh] -z-50" />
-      </header>
+      </motion.header>
       <main className="px-[5cqmin]">
         <section className="mx-auto w-[clamp(50%+5cqmin,700px,100%)] text-[1.5rem] leading-relaxed text-pretty">
           <article>{children}</article>
@@ -286,11 +302,11 @@ export default function Page({
           </section>
         </section>
       )}
-      <footer>
+      <footer ref={footer}>
         <section className="text-black bg-white">
           <section className="relative h-screen w-screen [clip-path:polygon(0%_0%,100%_0%,100%_100%,0%_100%)]">
             <section className="fixed h-screen w-screen inset-0">
-              <section className="size-full p-[5cqmin] pt-[15vh] flex flex-col gap-[3cqmin] text-base">
+              <section className="size-full p-[5cqmin] flex flex-col gap-[3cqmin] text-base">
                 <section className="flex size-full gap-[5cqmin]">
                   <section className="flex flex-col justify-end gap-[1em]">
                     <div className="flex flex-wrap items-baseline px-1.5">
