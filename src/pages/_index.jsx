@@ -286,7 +286,7 @@ export default function Page({
         <section className="min-[1000px]:hidden flex flex-col-reverse">
           <section className="px-[5cqmin] py-[max(5cqmin,64px)] bg-white text-black">
             <div className="flex flex-col gap-3 text-base">
-              <div className="ml-1 mb-3.5 text-[2em]">collection</div>
+              <Link href="/collection" className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1.5 pb-2 pt-1">collection</Link>
               <Collection collection={collection} />
             </div>
           </section>
@@ -399,7 +399,7 @@ export default function Page({
                   {collection?.filter((entry) => entry?.data?.show)?.length !==
                     0 && (
                     <section className="max-[999px]:hidden flex flex-col overflow-hidden justify-start gap-[1em]">
-                      <div className="ml-1 mb-3.5 text-[2em]">collection</div>
+                      <Link href="/collection" className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1.5 pb-2 pt-1">collection</Link>
                       <Collection collection={collection} />
                     </section>
                   )}
