@@ -118,15 +118,23 @@ const Collection = ({ collection }) => {
             {(entry?.data?.tag || entry?.data?.author || entry?.data?.date) && (
               <div className="flex flex-wrap px-1 items-baseline text-[0.7em]">
                 {entry?.data?.date && (
-                  <time>{'|'}&nbsp;{new Date(entry?.data?.date).toLocaleDateString('en-GB')}&nbsp;{'|'}&nbsp;&nbsp;&nbsp;</time>
+                  <time>
+                    {'|'}&nbsp;
+                    {new Date(entry?.data?.date).toLocaleDateString('en-GB')}
+                    &nbsp;{'|'}&nbsp;&nbsp;&nbsp;
+                  </time>
                 )}
                 {entry?.data?.tag &&
                   entry?.data?.tag?.map((tag, key) => (
-                    <div key={key}>{'['}&nbsp;{tag}&nbsp;{']'}&nbsp;&nbsp;&nbsp;</div>
+                    <div key={key}>
+                      {'['}&nbsp;{tag}&nbsp;{']'}&nbsp;&nbsp;&nbsp;
+                    </div>
                   ))}
                 {entry?.data?.author &&
                   entry?.data?.author?.map((author, key) => (
-                    <div key={key} className="italic">{author}&nbsp;&nbsp;&nbsp;</div>
+                    <div key={key} className="italic">
+                      {author}&nbsp;&nbsp;&nbsp;
+                    </div>
                   ))}
               </div>
             )}
@@ -189,7 +197,7 @@ export default function Page({
               <div className="absolute overflow-hidden bg-white h-full w-full text-black flex items-center justify-center">
                 <motion.div
                   style={{
-                    scale: useTransform(scrollYProgress, [0, 1], [1, 33], {
+                    scale: useTransform(scrollYProgress, [0, 1], [1, 0], {
                       ease: easeInOut,
                     }),
                     opacity: useTransform(scrollYProgress, [0, 0.15], [1, 0], {
@@ -257,7 +265,10 @@ export default function Page({
                       <div className="flex items-baseline">
                         {data?.user?.name}
                         <div className="text-[0.44em]">
-                          <Link href={data?.user?.url}>
+                          <Link
+                            href={data?.user?.url}
+                            className="cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-0.5"
+                          >
                             {data?.user?.login}
                           </Link>
                         </div>
@@ -279,14 +290,19 @@ export default function Page({
       </motion.header>
       <main className="px-[5cqmin]">
         <section className="mx-auto w-[clamp(50%+5cqmin,700px,100%)] text-[1.5rem] leading-relaxed text-pretty">
-          <article>{children}</article>
+          <article className="font-['JetBrains_Mono']">{children}</article>
         </section>
       </main>
       {collection?.filter((entry) => entry?.data?.show)?.length !== 0 && (
         <section className="min-[1000px]:hidden flex flex-col-reverse">
           <section className="px-[5cqmin] py-[max(5cqmin,64px)] bg-white text-black">
             <div className="flex flex-col gap-3 text-base">
-              <Link href="/collection" className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-2 pt-1">collection</Link>
+              <Link
+                href="/collection"
+                className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-2 pt-1"
+              >
+                collection
+              </Link>
               <Collection collection={collection} />
             </div>
           </section>
@@ -296,7 +312,12 @@ export default function Page({
         <section className="min-[700px]:hidden flex flex-col-reverse">
           <section className="px-[5cqmin] py-[max(5cqmin,64px)] bg-white text-black">
             <div className="flex flex-col gap-3 text-base">
-              <Link href={`${data?.user?.url}?tab=repositories`} className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-2 pt-1">repositories</Link>
+              <Link
+                href={`${data?.user?.url}?tab=repositories`}
+                className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-2 pt-1"
+              >
+                repositories
+              </Link>
               <GithubRepositories data={data} />
             </div>
           </section>
@@ -392,14 +413,24 @@ export default function Page({
                   </section>
                   {data?.user?.pinnedItems?.edges?.length !== 0 && (
                     <section className="max-[699px]:hidden flex flex-col overflow-hidden justify-start gap-[1em]">
-                      <Link href={`${data?.user?.url}?tab=repositories`} className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-2 pt-1">repositories</Link>
+                      <Link
+                        href={`${data?.user?.url}?tab=repositories`}
+                        className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-2 pt-1"
+                      >
+                        repositories
+                      </Link>
                       <GithubRepositories data={data} />
                     </section>
                   )}
                   {collection?.filter((entry) => entry?.data?.show)?.length !==
                     0 && (
                     <section className="max-[999px]:hidden flex flex-col overflow-hidden justify-start gap-[1em]">
-                      <Link href="/collection" className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-2 pt-1">collection</Link>
+                      <Link
+                        href="/collection"
+                        className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-2 pt-1"
+                      >
+                        collection
+                      </Link>
                       <Collection collection={collection} />
                     </section>
                   )}
