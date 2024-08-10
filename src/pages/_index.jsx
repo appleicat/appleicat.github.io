@@ -157,6 +157,8 @@ export default function Page({
   collection,
   backgroundImage,
   mdx,
+  sha,
+  date,
   children,
 }) {
   const ref = useRef(null);
@@ -410,6 +412,10 @@ export default function Page({
                         ))}
                       </section>
                     )}
+                    <section className="flex flex-wrap justify-start gap-[1em] uppercase text-[0.5em] px-1.5 font-['JetBrains_Mono'] font-light">
+                      {sha.slice(0, 7)}
+                      <time>{Number(date)}</time>
+                    </section>
                   </section>
                   {data?.user?.pinnedItems?.edges?.length !== 0 && (
                     <section className="max-[699px]:hidden flex flex-col overflow-hidden justify-start gap-[1em]">

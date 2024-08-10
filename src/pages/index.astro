@@ -5,6 +5,8 @@ import * as indexMDX from './_index.mdx';
 import Page from './_index';
 import { Pointer } from './_pointer';
 const [USER, REPO] = import.meta.env.GITHUB_REPOSITORY.split('/');
+const sha = import.meta.env.GITHUB_SHA;
+const date = new Date();
 let data;
 try {
   const response = await fetch(import.meta.env.GITHUB_GRAPHQL_URL, {
@@ -111,6 +113,8 @@ try {
       collection={collection}
       backgroundImage={''}
       mdx={indexMDX}
+      sha={sha}
+      date={date}
     >
       <indexMDX.Content />
     </Page>
