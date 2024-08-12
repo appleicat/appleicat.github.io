@@ -412,9 +412,21 @@ export default function Page({
                         ))}
                       </section>
                     )}
-                    <section className="flex flex-wrap justify-start gap-[1em] uppercase text-[0.5em] px-1.5 font-['JetBrains_Mono'] font-light">
-                      {sha.slice(0, 7)}
-                      <time>{Number(date)}</time>
+                    <section className="flex flex-col flex-wrap justify-start gap-[0em] uppercase text-[0.5em] p-1.5 font-['JetBrains_Mono'] font-[400] leading-[1em] tracking-[0em]">
+                      {/* <time>{Number(date)}</time> */}
+                      <div>DESIGNED</div>
+                      <div>BY&nbsp;KITTY</div>
+                      <div>#{sha.slice(0, 7)}</div>
+                      <time>
+                        {String(date.getFullYear()).padStart(4, 0).slice(-2)}.
+                        {String(date.getMonth() + 1).padStart(2, 0)}.
+                        {String(date.getDate()).padStart(2, 0)}
+                      </time>
+                      <time>
+                        {String(date.getHours()).padStart(2, 0)}:
+                        {String(date.getMinutes()).padStart(2, 0)}:
+                        {String(date.getSeconds()).padStart(2, 0)}
+                      </time>
                     </section>
                   </section>
                   {data?.user?.pinnedItems?.edges?.length !== 0 && (
