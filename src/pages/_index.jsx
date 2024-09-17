@@ -36,26 +36,24 @@ const GithubRepositories = ({ data }) => {
               </Link>
             </div>
             <div className="flex flex-wrap gap-[0.5em]">
-              {/* {edge?.node?.collaborators?.totalCount !==
-              0 && (
-              <div className="text-xs px-1 py-0.5">
-                CODERS{' '}
-                {edge?.node?.collaborators?.totalCount}
-              </div>
-            )} */}
-              {edge?.node?.watchers?.totalCount !== 0 && (
+              {/* {edge?.node?.collaborators?.totalCount !== 0 && (
+                <div className="text-xs px-1 py-0.5">
+                  CODERS {edge?.node?.collaborators?.totalCount}
+                </div>
+              )} */}
+              {/* {edge?.node?.watchers?.totalCount !== 0 && (
                 <div className="text-xs px-1 py-0.5">
                   WATCHERS {edge?.node?.watchers?.totalCount}
+                </div>
+              )} */}
+              {edge?.node?.stargazers?.totalCount !== 0 && (
+                <div className="text-xs px-1 py-0.5">
+                  STARS {edge?.node?.stargazers?.totalCount}
                 </div>
               )}
               {edge?.node?.forks?.totalCount !== 0 && (
                 <div className="text-xs px-1 py-0.5">
                   FORKS {edge?.node?.forks?.totalCount}
-                </div>
-              )}
-              {edge?.node?.stargazers?.totalCount !== 0 && (
-                <div className="text-xs px-1 py-0.5">
-                  STARS {edge?.node?.stargazers?.totalCount}
                 </div>
               )}
               {edge?.node?.homepageUrl && (
@@ -159,6 +157,8 @@ export default function Page({
   mdx,
   sha,
   date,
+  readme,
+  userReadme,
   children,
 }) {
   const ref = useRef(null);
@@ -292,6 +292,12 @@ export default function Page({
       </motion.header>
       <main className="px-[5cqmin]">
         <section className="mx-auto w-[clamp(50%+5cqmin,700px,100%)] text-[1.5rem] leading-relaxed text-pretty">
+          {readme && (
+            <article
+              className="font-['JetBrains_Mono'] py-64"
+              dangerouslySetInnerHTML={{ __html: readme }}
+            />
+          )}
           <article className="font-['JetBrains_Mono']">{children}</article>
         </section>
       </main>
@@ -452,6 +458,14 @@ export default function Page({
                       <Collection collection={collection} />
                     </section>
                   )} */}
+                  {userReadme && (
+                    <section className="max-[999px]:hidden flex flex-col overflow-hidden justify-end gap-[1em]">
+                      <article
+                        className="font-['JetBrains_Mono']"
+                        dangerouslySetInnerHTML={{ __html: userReadme }}
+                      />
+                    </section>
+                  )}
                 </section>
               </section>
             </section>

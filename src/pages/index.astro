@@ -76,6 +76,34 @@ try {
 } catch (error) {
   console.error(error);
 }
+let readme;
+try {
+  const response = await fetch(
+    `${import.meta.env.GITHUB_API_URL}/repos/${USER}/${REPO}/readme`,
+    {
+      headers: {
+        Accept: 'application/vnd.github.html+json',
+      },
+    }
+  );
+  readme = response.status == 200 ? await response.text() : undefined;
+} catch (error) {
+  console.log(error);
+}
+let userReadme;
+try {
+  const response = await fetch(
+    `${import.meta.env.GITHUB_API_URL}/repos/${USER}/${USER}/readme`,
+    {
+      headers: {
+        Accept: 'application/vnd.github.html+json',
+      },
+    }
+  );
+  userReadme = response.status == 200 ? await response.text() : undefined;
+} catch (error) {
+  console.log(error);
+}
 ---
 
 <!doctype html>
@@ -115,6 +143,8 @@ try {
       mdx={indexMDX}
       sha={sha}
       date={date}
+      readme={readme}
+      userReadme={userReadme}
     >
       <indexMDX.Content />
     </Page>
@@ -131,11 +161,26 @@ try {
   article {
     @apply prose text-white max-w-full;
   }
+  footer article {
+    @apply text-sm;
+  }
   article * {
     @apply text-white;
   }
+  footer article * {
+    @apply text-black;
+  }
   article a {
     @apply underline-offset-8 cursor-none underline hover:underline-offset-[1.5px] transition-all inline-block;
+  }
+  footer article a {
+    @apply underline-offset-4;
+  }
+  article a svg {
+    @apply hidden;
+  }
+  article div {
+    @apply flex;
   }
   article blockquote {
     @apply border-none px-[1em];
