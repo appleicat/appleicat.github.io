@@ -296,7 +296,7 @@ export default function Page({
         <section className="mx-auto w-[clamp(50%+5cqmin,700px,100%)] text-[1.5rem] leading-relaxed text-pretty">
           {readme && (
             <article
-              className="font-['JetBrains_Mono'] py-64"
+              className="font-['JetBrains_Mono'] py-[30vh]"
               dangerouslySetInnerHTML={{ __html: readme }}
             />
           )}
@@ -305,8 +305,8 @@ export default function Page({
       </main>
       {collection?.filter((entry) => entry?.data?.show)?.length !== 0 && (
         <section className="flex flex-col">
-          <section className="px-[5cqmin] py-[max(5cqmin,64px)]">
-            <div className="flex flex-col gap-10 text-base px-[5cqmin] py-[max(5cqmin,64px)]  bg-white text-black mx-auto w-[clamp(50%+5cqmin,700px,100%)]">
+          <section className="py-[max(5cqmin,64px)]">
+            <div className="flex flex-col gap-[max(5cqmin,64px)] text-base px-[5cqmin] py-[max(5cqmin,64px)] bg-white text-black mx-auto w-[clamp(50%,700px,100%)]">
               <Link
                 href="/collection"
                 className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-2 pt-1"
