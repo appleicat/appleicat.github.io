@@ -265,7 +265,9 @@ export default function Page({
                     </div>
                     <div className="pt-[10cqmin] flex justify-between items-center">
                       <div className="flex items-baseline">
-                        {data?.user?.name}
+                        <div className="font-['Melodrama']">
+                          {data?.user?.name}
+                        </div>
                         <div className="text-[0.44em]">
                           <Link
                             href={data?.user?.url}
