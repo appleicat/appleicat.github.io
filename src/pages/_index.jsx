@@ -303,10 +303,10 @@ export default function Page({
           <article className="font-['JetBrains_Mono']">{children}</article>
         </section>
       </main>
-      {/* {collection?.filter((entry) => entry?.data?.show)?.length !== 0 && (
-        <section className="min-[1000px]:hidden flex flex-col-reverse">
-          <section className="px-[5cqmin] py-[max(5cqmin,64px)] bg-white text-black">
-            <div className="flex flex-col gap-3 text-base">
+      {collection?.filter((entry) => entry?.data?.show)?.length !== 0 && (
+        <section className="flex flex-col">
+          <section className="px-[5cqmin] py-[max(5cqmin,64px)]">
+            <div className="flex flex-col gap-10 text-base px-[5cqmin] py-[max(5cqmin,64px)]  bg-white text-black mx-auto w-[clamp(50%+5cqmin,700px,100%)]">
               <Link
                 href="/collection"
                 className="text-[1.5em] cursor-none underline underline-offset-[0.3em] hover:no-underline transition-all inline-block whitespace-pre px-1 pb-2 pt-1"
@@ -317,7 +317,7 @@ export default function Page({
             </div>
           </section>
         </section>
-      )} */}
+      )}
       {data?.user?.pinnedItems?.edges?.length !== 0 && (
         <section className="min-[700px]:hidden flex flex-col-reverse">
           <section className="px-[5cqmin] py-[max(5cqmin,64px)] bg-white text-black">
